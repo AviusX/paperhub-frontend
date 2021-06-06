@@ -13,7 +13,7 @@ module.exports = {
       fontFamily: {
         'display': 'Nunito, sans-serif',
         'body': 'Titillium Web, sans-serif',
-        'logo': 'Verbena'
+        'logo': 'Gondola SD'
       },
       maxHeight: {
         '0': '0',

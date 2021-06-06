@@ -30,7 +30,7 @@ const Navbar: React.FC = props => {
     } else {
         rightNavLinks = (
             // Login with Discord button
-            <li className="flex items-center justify-center py-2 lg:px-3 lg:mx-1 h-full text-white
+            <li className="flex items-center justify-center py-2 lg:px-3 lg:mx-1 text-white
                 text-lg font-display bg-blurple lg:rounded-lg hover:filter hover:brightness-125
                 transition-all duration-200 cursor-pointer" onClick={discordLogin}>
                 <img src={DiscordLogoWhite} alt="Discord Logo" className="h-5 mr-3" />
@@ -40,13 +40,13 @@ const Navbar: React.FC = props => {
     }
 
     return (
-        <nav className="flex flex-1 flex-wrap justify-between items-center lg:flex-nowrap sticky top-0 left-0
-    w-screen bg-dark" id="navbar">
+        <nav className="flex flex-1 flex-wrap justify-between items-stretch lg:flex-nowrap sticky top-0 left-0
+    w-screen bg-dark h-16" id="navbar">
             {/* Left nav links */}
-            <ul className="flex items-center px-3 h-full">
+            <ul className="flex px-6">
                 <Link to="/">
-                    <li className="py-3 px-3 h-full hover:backdrop-filter hover:backdrop-brightness-200
-            transition-all duration-200 font-logo text-primary text-4xl">
+                    <li className="px-3 h-full hover:backdrop-filter hover:backdrop-brightness-200
+            transition-all duration-200 font-logo text-primary text-xl flex items-center">
                         Paperhub
                     </li>
                 </Link>

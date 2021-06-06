@@ -1,0 +1,25 @@
+@import '../../scss/config';
+
+.Landing {
+    background: rgb(24, 5, 41);
+    background: linear-gradient(140deg, rgba(24, 5, 41, 1) 0%, rgba(67, 14, 115, 1) 100%);
+    position: relative;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    z-index: 100;
+}
+
+.Wave::after {
+    z-index: -100;
+    content: url("../../assets/images/wave.svg");
+    position: absolute;
+    bottom: -1%;
+    left: 0;
+    width: 100%;
+}
+
+@media screen and (min-width: $screen-lg) {
+    .Wave::after {
+        bottom: -13%;
+    }
+}

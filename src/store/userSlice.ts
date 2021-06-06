@@ -5,7 +5,8 @@ const userSlice = createSlice({
     initialState: {
         isAuthenticated: false,
         discordId: "",
-        username: ""
+        username: "",
+        discriminator: ""
     },
     reducers: {
         authenticate: state => {
@@ -19,9 +20,19 @@ const userSlice = createSlice({
         },
         setUsername: (state, action) => {
             state.username = action.payload;
+        },
+        setDiscriminator: (state, action) => {
+            state.discriminator = action.payload;
         }
     }
 });
 
-export const { authenticate, deauthenticate, setDiscordId, setUsername } = userSlice.actions;
+export const {
+    authenticate,
+    deauthenticate,
+    setDiscordId,
+    setUsername,
+    setDiscriminator
+} = userSlice.actions;
+
 export default userSlice.reducer;

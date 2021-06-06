@@ -1,5 +1,5 @@
 import { authCheck, logout } from '../api/index';
-import { authenticate, deauthenticate, setDiscordId, setUsername } from '../store/userSlice';
+import { authenticate, deauthenticate, setDiscordId, setDiscriminator, setUsername } from '../store/userSlice';
 import { useDispatch } from 'react-redux';
 
 export const useDiscordLogin = () => {
@@ -14,12 +14,15 @@ export const useAuthCheck = () => {
     return function () {
         authCheck()
             .then(res => {
-                dispatch(authenticate());
-                dispatch(setDiscordId(res.data.discordId));
-                dispatch(setUsername(res.data.username));
+                if (res.status === 200) {
+                    dispatch(authenticate());
+                    dispatch(setDiscordId(res.data.discordId));
+                    dispatch(setUsername(res.data.username));
+                    dispatch(setDiscriminator(res.data.discriminator));
+                }
             })
             .catch(err => {
-                console.log(err.response);
+                // Do nothing.
             });
     }
 }
@@ -33,6 +36,7 @@ export const useLogout = () => {
                 dispatch(deauthenticate());
                 dispatch(setDiscordId(""));
                 dispatch(setUsername(""));
+                dispatch(setDiscriminator(""));
             })
             .catch(err => {
                 console.log(err.response);

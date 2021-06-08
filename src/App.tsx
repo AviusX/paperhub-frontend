@@ -15,8 +15,8 @@ function App() {
   // We only want to run this useEffect once, not on every render.
   // Therefore, an empty array is necessary. Putting authCheck in the
   // dependency array will run this everytime since useAuthCheck will
-  // return a new authCheck function every time. This would send a
-  // new request to /auth/check on every render.
+  // return a new instance of authCheck function every time. This would
+  // send a new request to /auth/check on every render.
   // So, disabling the warning about not including authCheck in the
   // dependency array here is a good idea.
 

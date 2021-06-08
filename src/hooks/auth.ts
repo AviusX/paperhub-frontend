@@ -1,5 +1,11 @@
 import { authCheck, logout } from '../api/index';
-import { authenticate, deauthenticate, setDiscordId, setDiscriminator, setUsername } from '../store/userSlice';
+import {
+    authenticate,
+    deauthenticate,
+    setDiscordId,
+    setDiscriminator,
+    setUsername
+} from '../store/userSlice';
 import { useDispatch } from 'react-redux';
 
 export const useDiscordLogin = () => {

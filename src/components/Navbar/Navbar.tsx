@@ -38,7 +38,7 @@ const Navbar: React.FC = props => {
 
     return (
         <nav className="flex flex-1 flex-wrap justify-between items-stretch lg:flex-nowrap sticky top-0 left-0
-    w-screen bg-primary-dark h-16" id="navbar">
+    w-full bg-primary-dark h-16 z-10" id="navbar">
             {/* Left nav links */}
             <ul className="flex px-6">
                 <Link to="/">

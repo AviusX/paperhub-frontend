@@ -1,6 +1,6 @@
 import DiscordLoginButton from '../../components/Buttons/DiscordLoginButton';
 import RoundedButton from '../../components/Buttons/RoundedButton';
-import Illustration from '../../components/Illustration';
+import Illustration from '../../components/Illustration/Illustration';
 import WallpaperIllustration from '../../assets/images/wallpaper-illustration.svg';
 import classes from './Landing.module.scss';
 import { useDiscordLogin } from '../../hooks/auth';

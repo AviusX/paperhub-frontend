@@ -18,11 +18,12 @@ const Browse: React.FC = props => {
     }, []);
 
     return (
-        <section className="flex flex-col justify-center my-4 w-full">
+        <section className="flex flex-col justify-center items-center my-4 w-full">
             <PageHeader>
                 Browse
             </PageHeader>
-            <div className="flex flex-wrap justify-center w-full px-4">
+            <div className="grid md:grid-cols-2 xl:grid-cols-3 grid-flow-row-dense items-center 
+            justify-items-center px-4">
                 {
                     wallpapers.map(wallpaper => (
                         <WallpaperCard wallpaper={wallpaper} key={wallpaper._id} />

@@ -16,17 +16,17 @@ const WallpaperCard: React.FC<Props> = props => {
 
     const staticFolder = "public";
     const imgSrc = props.wallpaper.imagePath.substring(staticFolder.length);
+    const spanClass = props.wallpaper.height > props.wallpaper.width ? "row-span-2" : "row-span-1"
 
     return (
-
-        <div className="flex flex-col rounded-2xl filter drop-shadow-2xl bg-secondary rounded-2xl w-11/12
-        sm:w-9/12 lg:w-5/12 my-5 mx-4">
+        <div className={`flex flex-col rounded-2xl filter drop-shadow-2xl bg-secondary rounded-2xl my-5 mx-4
+        ${spanClass}`}>
             <img
                 src={imgSrc}
                 alt={`${props.wallpaper.title}`}
                 className="max-w-full rounded-t-2xl"
             />
-            <h3 className="text-center text-xl md:text-2xl font-semibold my-4">{props.wallpaper.title}</h3>
+            <h3 className="text-center text-xl lg:text-2xl font-semibold py-2 sm:py-4">{props.wallpaper.title}</h3>
         </div>
     );
 }

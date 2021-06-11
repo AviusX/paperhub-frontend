@@ -5,6 +5,6 @@ export interface IWallpaper {
     imagePath: string;
     width: number;
     height: number;
-    tags?: string[]
-    likes?: string[]
+    downloadCount?: number;
+    tags?: string[];
 }

@@ -10,7 +10,7 @@ const Landing: React.FC = props => {
     const discordLogin = useDiscordLogin();
 
     return (
-        <section className={`h-screen w-screen flex flex-col items-start box-border 
+        <section className={`h-screen w-full flex flex-col items-start box-border 
         ${classes.Landing} ${classes.Wave}`}>
             {/* Landing page navbar */}
             <div className="hidden lg:flex justify-end items-center w-full mt-14 px-8 lg:px-20 h-20">

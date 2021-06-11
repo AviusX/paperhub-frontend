@@ -1,5 +1,5 @@
 interface Props {
-    color: 'primary' | 'accent';
+    color: "primary" | "accent";
 }
 
 const RoundedButton: React.FC<Props> = props => (

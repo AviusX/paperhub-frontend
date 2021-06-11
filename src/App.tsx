@@ -30,7 +30,7 @@ function App() {
         <Navbar />
       ) : null}
       <Switch>
-        <Route path="/" exact>
+        <Route path="/" exact >
           {isAuthenticated ? (
             <Redirect to="/browse" />
           ) : (

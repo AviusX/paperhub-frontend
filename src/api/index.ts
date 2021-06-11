@@ -1,9 +1,6 @@
 import axios from 'axios';
-import { SERVER_URL } from '../config';
 
-const API = axios.create({
-    baseURL: SERVER_URL
-});
+const API = axios.create();
 
 // Wallpaper Routes ===========================================
 

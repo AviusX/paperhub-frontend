@@ -1,5 +1,4 @@
 import { IWallpaper } from '../../api/interfaces';
-import { SERVER_URL } from '../../config';
 import { DownloadIcon } from '@heroicons/react/solid';
 
 interface Props {
@@ -19,7 +18,7 @@ const WallpaperCard: React.FC<Props> = props => {
     // "public/wallpapers/imageName"
 
     const staticFolder = "public";
-    const imgSrc = SERVER_URL + "/" + props.wallpaper.imagePath.substring(staticFolder.length);
+    const imgSrc = props.wallpaper.imagePath.substring(staticFolder.length);
     const spanClass = props.wallpaper.height > props.wallpaper.width ? "row-span-2" : "row-span-1"
 
     return (

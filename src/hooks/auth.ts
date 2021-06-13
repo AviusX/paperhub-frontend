@@ -4,6 +4,7 @@ import {
     deauthenticate,
     setDiscordId,
     setDiscriminator,
+    setPermissionLevel,
     setUsername
 } from '../store/userSlice';
 import { useDispatch } from 'react-redux';
@@ -25,6 +26,7 @@ export const useAuthCheck = () => {
                     dispatch(setDiscordId(res.data.discordId));
                     dispatch(setUsername(res.data.username));
                     dispatch(setDiscriminator(res.data.discriminator));
+                    dispatch(setPermissionLevel(res.data.permissionLevel));
                 }
             })
             .catch(err => {
@@ -43,6 +45,7 @@ export const useLogout = () => {
                 dispatch(setDiscordId(""));
                 dispatch(setUsername(""));
                 dispatch(setDiscriminator(""));
+                dispatch(setPermissionLevel(0));
             })
             .catch(err => {
                 console.log(err.response);

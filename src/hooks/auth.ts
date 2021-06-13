@@ -7,6 +7,7 @@ import {
     setPermissionLevel,
     setUsername
 } from '../store/userSlice';
+import { PermissionLevel } from '../enums/PermissionLevel';
 import { useDispatch } from 'react-redux';
 
 export const useDiscordLogin = () => {
@@ -45,7 +46,7 @@ export const useLogout = () => {
                 dispatch(setDiscordId(""));
                 dispatch(setUsername(""));
                 dispatch(setDiscriminator(""));
-                dispatch(setPermissionLevel(0));
+                dispatch(setPermissionLevel(PermissionLevel.User));
             })
             .catch(err => {
                 console.log(err.response);

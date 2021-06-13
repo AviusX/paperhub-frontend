@@ -6,6 +6,8 @@ import { useAuthCheck } from './hooks/auth';
 import IStore from './store/IStore';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { ToastContainer, Flip } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css';
 
 function App() {
   const location = useLocation();
@@ -29,6 +31,11 @@ function App() {
       {location.pathname !== '/' ? (
         <Navbar />
       ) : null}
+
+      {/* Render the toast container on every page so that toasts
+      can show up anywhere. */}
+      <ToastContainer transition={Flip} />
+
       <Switch>
         <Route path="/" exact >
           {isAuthenticated ? (

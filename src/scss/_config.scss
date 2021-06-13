@@ -5,21 +5,28 @@
     src: local("Gondola SD"), url("../assets/fonts/Gondola-SD/Gondola_SD.ttf") format("truetype");
 }
 
-// colors
+// Colors =====================================================
 $primary: #8A1FEB;
 $secondary: #F8F0FF;
 $accent: #EB1FC4;
 $dark: #180529;
 $elevation-grey: #333333;
 
-// fonts
+// Fonts ======================================================
 $font-display: 'Nunito';
 $font-body: 'Titillium Web';
 $font-logo: 'Gondola SD';
 
-//breakpoints
+// Breakpoints ================================================
 $screen-sm: 640px;
 $screen-md: 768px;
 $screen-lg: 1024px;
 $screen-xl: 1280px;
 $screen-2xl: 1536px;
+
+// Bulma form customization ===================================
+$label-color: $primary;
+$input-background-color: $secondary;
+$input-color: black;
+$input-focus-border-color: $primary;
+$input-icon-color: $primary;

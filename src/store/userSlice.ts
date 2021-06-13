@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { PermissionLevel } from '../enums/PermissionLevel';
 
 const userSlice = createSlice({
     name: "user",
@@ -7,7 +8,7 @@ const userSlice = createSlice({
         discordId: "",
         username: "",
         discriminator: "",
-        permissionLevel: 0
+        permissionLevel: PermissionLevel.User
     },
     reducers: {
         authenticate: state => {

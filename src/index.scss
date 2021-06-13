@@ -1,5 +1,9 @@
 @import './scss/config';
 
+// Import only the form styles from Bulma 
+@import "../node_modules/bulma/sass/utilities/_all.sass";
+@import "../node_modules/bulma/sass/form/_all.sass";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

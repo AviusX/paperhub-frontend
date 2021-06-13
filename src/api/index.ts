@@ -13,6 +13,17 @@ const API = axios.create();
  */
 export const getAllWallpapers = () => API.get('/wallpapers/');
 
+// Tag Routes =================================================
+
+/**
+ * Takes a tag title and creates a tag in the database with that title.
+ * The promise resolves to either a success or an error message.
+ *
+ * @param {string} title
+ * @returns Promise<AxiosResponse<any>>
+ */
+export const createTag = (title: string) => API.post('/tags', { title });
+
 // Authentication / User Routes ===============================
 
 /**

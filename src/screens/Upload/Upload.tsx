@@ -1,6 +1,4 @@
 import { useState, useRef, ChangeEvent, FormEvent } from 'react';
-import PageHeader from '../../components/PageHeader/PageHeader';
-import ModalHeading from '../../components/Modals/ModalHeading';
 import InputField from '../../components/InputField/InputField';
 import Button from '../../components/Buttons/Button';
 import { PhotographIcon } from '@heroicons/react/outline';
@@ -34,25 +32,23 @@ const Upload: React.FC = props => {
     }
 
     return (
-        <section className="flex flex-col items-center w-full">
-            <PageHeader>
-                Upload Wallpaper
-            </PageHeader>
+        <section className="w-full lg:h-screen lg:overflow-y-hidden">
+            <form onSubmit={submitHandler} className="flex flex-wrap w-full lg:h-full">
 
-            <div className="flex flex-col bg-secondary rounded-2xl w-11/12 sm:w-8/12 md:w-6/12 xl:w-5/12 2xl:w-4/12 
-            filter drop-shadow-xl mt-24 py-4 sm:py-3 py-6 px-4 sm:px-6 xl:px-8">
-                <ModalHeading>
-                    Upload
-                </ModalHeading>
-                <form onSubmit={submitHandler} className="flex flex-col items-center w-full">
-                    <label className="flex flex-col relative justify-center items-center h-24">
+                {/* The image/wallpaper select div */}
+                <div className="w-full lg:w-8/12 px-2 xl:px-6">
+                    <label className="flex relative justify-center items-center my-3 h-full">
                         {wallpaperURL ? (
-                            <img src={wallpaperURL} alt="Wallpaper" className="max-h-3/4" />
+                            <div className="max-w-3/4">
+                                <img src={wallpaperURL} alt="Wallpaper" className="max-h-full max-w-full" />
+                            </div>
                         ) : (
-                            <>
-                                <PhotographIcon className="max-h-3/4" />
-                                Click or drag an image here to select a wallpaper.
-                            </>
+                            <div className="flex flex-col items-center max-w-3/4">
+                                <PhotographIcon className="max-w-1/4 opacity-50" />
+                                <p className="font-semibold text-xl lg:text-2xl text-center">
+                                    Click or drag an image here to select a wallpaper.
+                                </p>
+                            </div>
                         )}
                         <input
                             type="file"
@@ -62,16 +58,20 @@ const Upload: React.FC = props => {
                             onChange={wallpaperChangeHandler}
                         />
                     </label>
+                </div>
 
-                    <InputField placeholder="Wallpaper Title" />
+                {/* The title & tag select div */}
+                <div className="flex flex-col w-full lg:w-4/12 lg:shadow-2xl px-5 py-7">
+                    <InputField placeholder="Wallpaper Title" label="Title" />
 
                     <div className="self-end">
                         <Button color="primary" type="submit">
                             Upload
                         </Button>
                     </div>
-                </form>
-            </div>
+                </div>
+
+            </form>
         </section>
     );
 }

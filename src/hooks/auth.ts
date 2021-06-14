@@ -1,4 +1,4 @@
-import { authCheck, logout } from '../api/index';
+import { authCheck, logout } from '../api';
 import {
     authenticate,
     deauthenticate,

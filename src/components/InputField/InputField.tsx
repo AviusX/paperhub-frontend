@@ -1,15 +1,26 @@
 interface Props {
     label?: string;
     placeholder?: string;
-    inputRef?: React.RefObject<HTMLInputElement>
+    iconPosition?: "left" | "right";
+    readOnly?: boolean;
+    inputRef?: React.RefObject<HTMLInputElement>;
+    value?: string;
+    onClick?: () => void;
 }
 
 const InputField: React.FC<Props> = props => {
     const icon = props.children;
     let iconClass: string | undefined;
+    let readOnlyClasses;
 
-    if (icon) {
+    if (icon && props.iconPosition === "left") {
         iconClass = "has-icons-left";
+    } else if (icon && props.iconPosition === "right") {
+        iconClass = "has-icons-right";
+    }
+
+    if (props.readOnly) {
+        readOnlyClasses = "cursor-pointer";
     }
 
     return (
@@ -18,12 +29,15 @@ const InputField: React.FC<Props> = props => {
             <div className={`control ${iconClass}`}>
                 <input
                     type="text"
-                    className="input"
+                    className={`input ${readOnlyClasses}`}
                     placeholder={props.placeholder}
                     ref={props.inputRef}
+                    value={props.value}
+                    readOnly={props.readOnly}
+                    onClick={props.onClick}
                 />
                 {icon && (
-                    <span className="icon is-small is-left flex justify-center items-center">
+                    <span className={`icon is-small is-${props.iconPosition} flex justify-center items-center`}>
                         {props.children}
                     </span>
                 )}

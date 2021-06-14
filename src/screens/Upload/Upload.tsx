@@ -1,6 +1,7 @@
 import { useState, useRef, ChangeEvent, FormEvent } from 'react';
 import InputField from '../../components/InputField/InputField';
 import Button from '../../components/Buttons/Button';
+import TagSelector from '../../components/TagSelector/TagSelector';
 import { PhotographIcon } from '@heroicons/react/outline';
 
 const Upload: React.FC = props => {
@@ -63,8 +64,9 @@ const Upload: React.FC = props => {
                 {/* The title & tag select div */}
                 <div className="flex flex-col w-full lg:w-4/12 lg:shadow-2xl px-5 py-7">
                     <InputField placeholder="Wallpaper Title" label="Title" />
+                    <TagSelector />
 
-                    <div className="self-end">
+                    <div className="my-5 self-end">
                         <Button color="primary" type="submit">
                             Upload
                         </Button>

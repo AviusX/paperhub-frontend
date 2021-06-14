@@ -42,5 +42,7 @@ module.exports = {
       backdropBrightness: ['hover']
     },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/forms')({strategy: "class"}),
+  ],
 }

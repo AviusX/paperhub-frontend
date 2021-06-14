@@ -31,7 +31,7 @@ const UserDropdown: React.FC<Props> = props => {
                 bg-primary-dark border-t-2 border-primary">
                     <DropdownItem onClick={logout}>
                         Logout
-                </DropdownItem>
+                    </DropdownItem>
                 </ul>
             ) : null}
         </li>

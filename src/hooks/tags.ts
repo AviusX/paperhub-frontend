@@ -1,4 +1,4 @@
-import { createTag } from '../api/index';
+import { createTag } from '../api';
 import { toast } from 'react-toastify';
 
 /**

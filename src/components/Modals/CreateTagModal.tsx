@@ -49,6 +49,7 @@ const CreateTagModal: React.FC<Props> = props => {
                             <InputField
                                 placeholder="Tag Name"
                                 inputRef={tagTitleRef}
+                                iconPosition="left"
                             >
                                 <TagIcon className="w-2/3" />
                             </InputField>

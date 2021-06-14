@@ -16,6 +16,14 @@ export const getAllWallpapers = () => API.get('/wallpapers/');
 // Tag Routes =================================================
 
 /**
+ * Request a list of all tags. Gets an array of tag titles or
+ * an error message in response.
+ *
+ * @returns Promise<AxiosResponse<any>>
+ */
+export const getAllTags = () => API.get('/tags');
+
+/**
  * Takes a tag title and creates a tag in the database with that title.
  * The promise resolves to either a success or an error message.
  *

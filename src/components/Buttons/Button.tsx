@@ -19,7 +19,7 @@ const RoundedButton: React.FC<Props> = props => {
 
     return (
         <button className={`py-2 px-4 md:py-3 md:px-5 xl:px-7 font-semibold focus:outline-none
-        rounded-lg transition-color duration-300 ${colorClasses}`}
+        rounded-lg transition-color duration-300 ${colorClasses} flex justify-center items-center`}
             type={props.type}
         >
             {props.children}

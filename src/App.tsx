@@ -2,6 +2,7 @@ import { Switch, Route, Redirect, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar';
 import Landing from './screens/Landing/Landing';
 import Browse from './screens/Browse/Browse';
+import Upload from './screens/Upload/Upload';
 import { useAuthCheck } from './hooks/auth';
 import IStore from './store/IStore';
 import { useEffect } from 'react';
@@ -48,6 +49,13 @@ function App() {
         <Route path="/browse">
           <Browse />
         </Route>
+        {isAuthenticated ? (
+          <Route path="/upload">
+            <Upload />
+          </Route>
+        ) : (
+          <Redirect to="browse" />
+        )}
       </Switch>
     </>
   );

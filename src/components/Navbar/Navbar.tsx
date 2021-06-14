@@ -26,6 +26,16 @@ const Navbar: React.FC = props => {
     if (isAuthenticated) {
         rightNavLinks = (
             <>
+                {permissionLevel === PermissionLevel.Developer ? (
+                    <NavLink onClick={() => setShowCreateTagModal(true)}>
+                        Create Tag
+                    </NavLink>
+                ) : null}
+                <Link to="/upload" className="h-full">
+                    <NavLink>
+                        Upload Wallpaper
+                    </NavLink>
+                </Link>
                 <UserDropdown username={username} />
             </>
         );
@@ -81,14 +91,8 @@ const Navbar: React.FC = props => {
                     <Link to="/browse" className="h-full">
                         <NavLink>
                             Browse
-                    </NavLink>
-                    </Link>
-
-                    {permissionLevel === PermissionLevel.Developer ? (
-                        <NavLink onClick={() => setShowCreateTagModal(true)}>
-                            Create Tag
                         </NavLink>
-                    ) : null}
+                    </Link>
 
                     {rightNavLinks}
                 </ul>

@@ -51,11 +51,9 @@ const TagSelector: React.FC = props => {
             {showDropdown && (
                 <ul className="absolute top-full right-0 w-full h-56 overflow-y-scroll rounded-lg bg-white border-2 
                 border-primary px-2">
-                    <div className="sticky top-0 left-0 my-2">
-                        <InputField placeholder="Search" iconPosition="left">
-                            <SearchIcon className="w-1/2" />
-                        </InputField>
-                    </div>
+                    <InputField placeholder="Search" iconPosition="left">
+                        <SearchIcon className="w-1/2" />
+                    </InputField>
 
                     {tags?.map(tag => (
                         <label className="cursor-pointer block px-2 py-3 my-1 bg-secondary filter brightness-105

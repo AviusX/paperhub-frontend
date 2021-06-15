@@ -1,18 +1,22 @@
 import InputField from '../InputField/InputField';
 import { SearchIcon, ChevronDownIcon } from '@heroicons/react/outline';
-import { useState, useEffect, useRef, ChangeEvent } from 'react';
+import { useState, useEffect, RefObject, ChangeEvent } from 'react';
 import { toast } from 'react-toastify';
 import { getAllTags } from '../../api';
 
 // StackOverflow answer for getting tagnames from array-
 // https://stackoverflow.com/a/46015793/10509081
 
+interface Props {
+    tagsFieldRef: RefObject<HTMLInputElement>;
+}
+
 interface Tag {
     title: string;
     checked: boolean;
 }
 
-const TagSelector: React.FC = props => {
+const TagSelector: React.FC<Props> = props => {
     const [showDropdown, setShowDropdown] = useState(false);
 
     // A list of all tags. This only gets set once on receiving a list of tags
@@ -22,8 +26,6 @@ const TagSelector: React.FC = props => {
     // Tags that will actually be displayed in the dropdown. These may change
     // according to the search string provided in search field.
     const [displayedTags, setDisplayedTags] = useState<Tag[]>([]);
-
-    const tagsFieldRef = useRef<HTMLInputElement>(null);
 
     useEffect(() => {
         getAllTags()
@@ -78,8 +80,8 @@ const TagSelector: React.FC = props => {
         }
 
         // Display the currently selected tags in a comma separated list in the input field.
-        if (tagsFieldRef.current) {
-            tagsFieldRef.current.value = selectedTags.join(', ');
+        if (props.tagsFieldRef.current) {
+            props.tagsFieldRef.current.value = selectedTags.join(', ');
         }
 
         // Toggle the checkbox's checked state and set the new state.
@@ -95,7 +97,7 @@ const TagSelector: React.FC = props => {
                 placeholder="Tags"
                 iconPosition="right"
                 readOnly
-                inputRef={tagsFieldRef}
+                inputRef={props.tagsFieldRef}
                 onClick={toggleDropdown}
             >
                 <ChevronDownIcon className="w-3/4" />

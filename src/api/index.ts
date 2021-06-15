@@ -11,7 +11,26 @@ const API = axios.create();
  *
  * @returns Promise<AxiosResponse<any>>
  */
-export const getAllWallpapers = () => API.get('/wallpapers/');
+export const getAllWallpapers = () => API.get('/wallpapers');
+
+/**
+ * Takes a wallpaper file, a title and an array of tag titles
+ * and sends a request to the server to create a wallpaper document.
+ * 
+ * Promise resolves to either a success or an error message.
+ *
+ * @param {File} wallpaper
+ * @param {string} title
+ * @param {string[]} tags
+ */
+export const uploadWallpaper = (wallpaper: File, title: string, tags: string[]) => {
+    const formData = new FormData();
+    formData.append('wallpaper', wallpaper);
+    formData.append('title', title);
+    formData.append('tags', JSON.stringify(tags));
+
+    return API.post('/wallpapers', formData);
+}
 
 // Tag Routes =================================================
 

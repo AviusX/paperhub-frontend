@@ -1,18 +1,62 @@
 import { useState, useRef, ChangeEvent, FormEvent } from 'react';
+import { useHistory } from 'react-router-dom';
 import InputField from '../../components/InputField/InputField';
 import Button from '../../components/Buttons/Button';
 import TagSelector from '../../components/TagSelector/TagSelector';
+import ErrorMessage from '../../components/FormErrorMessage/FormErrorMessage';
+import { wallpaperSchema } from '../../schema/wallpaper';
 import { PhotographIcon } from '@heroicons/react/outline';
+import { uploadWallpaper } from '../../api';
+import { toast } from 'react-toastify';
 
 const Upload: React.FC = props => {
     const [wallpaperURL, setWallpaperURL] = useState<string>();
+    const [errorMessage, setErrorMessage] = useState<string>();
+
     const wallpaperRef = useRef<HTMLInputElement>(null);
+    const titleRef = useRef<HTMLInputElement>(null);
+    const tagsFieldRef = useRef<HTMLInputElement>(null);
+
+    const history = useHistory();
 
     const submitHandler = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        if (wallpaperRef.current?.files) {
-            const file = wallpaperRef.current.files[0];
-            console.log(file.type);
+        const title = titleRef.current?.value;
+        const tags = tagsFieldRef.current?.value.split(',').map(value => value.trim());
+        const fileTypeRegex = /^image\/.+/; // Regex for matching mime type image/*
+        let wallpaper: File;
+        let fileTypeError: string | undefined;
+        let fileType = "";
+
+        if (wallpaperRef.current?.files && wallpaperRef.current.files[0]) {
+            wallpaper = wallpaperRef.current.files[0];
+            fileType = wallpaper.type;
+        }
+
+        const { error } = wallpaperSchema.validate({ title, tags });
+
+        if (!fileTypeRegex.test(fileType)) {
+            fileTypeError = "An image file is required.";
+        }
+
+        if (error) {
+            setErrorMessage(error.message);
+        } else if (fileTypeError) {
+            setErrorMessage(fileTypeError);
+        } else {
+            // Add ts-expect-error because we want to ignore this error.
+            // This is because `wallpaper` will never be undefined by the time this
+            // code executes.
+
+            // @ts-expect-error
+            uploadWallpaper(wallpaper, title, tags)
+                .then(res => {
+                    toast.success(res.data.message);
+                    history.push('/');
+                })
+                .catch(err => {
+                    toast.error(err.response.data.message);
+                })
         }
     }
 
@@ -47,7 +91,7 @@ const Upload: React.FC = props => {
                             <div className="flex flex-col items-center max-w-3/4">
                                 <PhotographIcon className="max-w-1/4 opacity-50" />
                                 <p className="font-semibold text-xl lg:text-2xl text-center">
-                                    Click or drag an image here to select a wallpaper.
+                                    Click here or drag an image here to select a wallpaper.
                                 </p>
                             </div>
                         )}
@@ -63,14 +107,15 @@ const Upload: React.FC = props => {
 
                 {/* The title & tag select div */}
                 <div className="flex flex-col w-full lg:w-4/12 lg:shadow-2xl px-5 py-7">
-                    <InputField placeholder="Wallpaper Title" label="Title" />
-                    <TagSelector />
+                    <InputField placeholder="Wallpaper Title" label="Title" inputRef={titleRef} />
+                    <TagSelector tagsFieldRef={tagsFieldRef} />
 
                     <div className="my-5 self-end">
                         <Button color="primary" type="submit">
                             Upload
                         </Button>
                     </div>
+                    <ErrorMessage>{errorMessage}</ErrorMessage>
                 </div>
 
             </form>

@@ -6,6 +6,7 @@ interface Props {
     inputRef?: React.RefObject<HTMLInputElement>;
     value?: string;
     onClick?: () => void;
+    onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const InputField: React.FC<Props> = props => {
@@ -35,6 +36,7 @@ const InputField: React.FC<Props> = props => {
                     value={props.value}
                     readOnly={props.readOnly}
                     onClick={props.onClick}
+                    onChange={props.onChange}
                 />
                 {icon && (
                     <span className={`icon is-small is-${props.iconPosition} flex justify-center items-center`}>

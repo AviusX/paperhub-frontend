@@ -1,13 +1,11 @@
 import { useState, useRef, ChangeEvent, FormEvent } from 'react';
-import { useHistory } from 'react-router-dom';
 import InputField from '../../components/InputField/InputField';
 import Button from '../../components/Buttons/Button';
 import TagSelector from '../../components/TagSelector/TagSelector';
 import ErrorMessage from '../../components/FormErrorMessage/FormErrorMessage';
 import { wallpaperSchema } from '../../schema/wallpaper';
 import { PhotographIcon } from '@heroicons/react/outline';
-import { uploadWallpaper } from '../../api';
-import { toast } from 'react-toastify';
+import { useUploadWallpaper } from '../../hooks/wallpapers';
 
 const Upload: React.FC = props => {
     const [wallpaperURL, setWallpaperURL] = useState<string>();
@@ -17,7 +15,7 @@ const Upload: React.FC = props => {
     const titleRef = useRef<HTMLInputElement>(null);
     const tagsFieldRef = useRef<HTMLInputElement>(null);
 
-    const history = useHistory();
+    const uploadWallpaper = useUploadWallpaper();
 
     const submitHandler = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -45,18 +43,11 @@ const Upload: React.FC = props => {
             setErrorMessage(fileTypeError);
         } else {
             // Add ts-expect-error because we want to ignore this error.
-            // This is because `wallpaper` will never be undefined by the time this
-            // code executes.
+            // This is because `wallpaper` or `title` will never be undefined
+            // by the time this code executes.
 
             // @ts-expect-error
-            uploadWallpaper(wallpaper, title, tags)
-                .then(res => {
-                    toast.success(res.data.message);
-                    history.push('/');
-                })
-                .catch(err => {
-                    toast.error(err.response.data.message);
-                })
+            uploadWallpaper(wallpaper, title, tags);
         }
     }
 
@@ -77,15 +68,15 @@ const Upload: React.FC = props => {
     }
 
     return (
-        <section className="w-full lg:h-screen lg:overflow-y-hidden">
+        <section className="w-full lg:h-nav-screen lg:overflow-y-hidden">
             <form onSubmit={submitHandler} className="flex flex-wrap w-full lg:h-full">
 
                 {/* The image/wallpaper select div */}
                 <div className="w-full lg:w-8/12 px-2 xl:px-6">
-                    <label className="flex relative justify-center items-center my-3 h-full">
+                    <label className="flex relative justify-center items-center py-3 h-full">
                         {wallpaperURL ? (
                             <div className="max-w-3/4">
-                                <img src={wallpaperURL} alt="Wallpaper" className="max-h-full max-w-full" />
+                                <img src={wallpaperURL} alt="Wallpaper" className="max-h-nav-screen max-w-full" />
                             </div>
                         ) : (
                             <div className="flex flex-col items-center max-w-3/4">

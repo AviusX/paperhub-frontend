@@ -18,15 +18,20 @@ module.exports = {
         'body': 'Titillium Web, sans-serif',
         'logo': 'Gondola SD'
       },
+      height: {
+        'nav-screen': 'calc(100vh - 4rem)' // The full height of screen with navbar taken into account.
+      },
       maxHeight: {
         '0': '0',
         '1/4': '25%',
         '1/2': '50%',
         '3/4': '75%',
         'full': '100%',
+        'nav-screen': 'calc(100vh - 4rem)'
       },
       maxWidth: {
         '0': '0',
+        '1/6': '16%',
         '1/4': '25%',
         '1/2': '50%',
         '3/4': '75%',
@@ -43,6 +48,8 @@ module.exports = {
     },
   },
   plugins: [
-    require('@tailwindcss/forms')({strategy: "class"}),
+    require('@tailwindcss/forms')({
+      strategy: "class"
+    }),
   ],
 }

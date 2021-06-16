@@ -11,3 +11,14 @@
 body {
     font-family: $font-body;
 }
+
+// Change text highlight background and color.
+::selection {
+    color: white;
+    background: $primary;
+}
+
+::-moz-selection {
+    color: white;
+    background: $primary;
+}

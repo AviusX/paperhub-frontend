@@ -66,6 +66,17 @@ export const createTag = (title: string) => API.post('/tags', { title });
 export const authCheck = () => API.get('/auth/check');
 
 /**
+ * Takes a userId as an argument and makes a request to the server to
+ * get information about that user.
+ * 
+ * Promise resolves to either the user data
+ * (username, discriminator, postedWallpapers) or an error message.
+ *
+ * @param {string} id
+ */
+export const getUser = (id: string) => API.get(`/users/${id}`);
+
+/**
  * Sends a logout request.
  * 
  * The promise resolves to a JSON object with either a success 

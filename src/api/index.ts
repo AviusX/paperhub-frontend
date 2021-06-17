@@ -11,7 +11,9 @@ const API = axios.create();
  *
  * @returns Promise<AxiosResponse<any>>
  */
-export const getAllWallpapers = () => API.get('/wallpapers');
+export const getAllWallpapers = (sortBy: string, sortDirection: string) => {
+    return API.get(`/wallpapers?sortBy=${sortBy}&sortDirection=${sortDirection}`);
+}
 
 /**
  * Takes a wallpaper file, a title and an array of tag titles

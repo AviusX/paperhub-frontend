@@ -41,7 +41,7 @@ const Browse: React.FC = props => {
                     <span className="mx-1 text-lg font-semibold">Sort By:</span>
                     <select
                         name="sortBy"
-                        className="form-select border-primary focus:ring-primary focus:border-primary rounded-md"
+                        className="form-select border-primary focus:ring-primary focus:border-primary rounded-md cursor-pointer"
                         onChange={onSortByChange}
                     >
                         <option value={SortBy.MostRecent}>
@@ -57,7 +57,7 @@ const Browse: React.FC = props => {
                     <span className="mx-1 text-lg font-semibold">Sort Direction:</span>
                     <select
                         name="sortBy"
-                        className="form-select border-primary focus:ring-primary focus:border-primary rounded-md"
+                        className="form-select border-primary focus:ring-primary focus:border-primary rounded-md cursor-pointer"
                         onChange={onSortDirectionChange}
                     >
                         <option value={SortDirection.Ascending}>

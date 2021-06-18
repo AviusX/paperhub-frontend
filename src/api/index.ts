@@ -11,8 +11,8 @@ const API = axios.create();
  *
  * @returns Promise<AxiosResponse<any>>
  */
-export const getAllWallpapers = (sortBy: string, sortDirection: string) => {
-    return API.get(`/wallpapers?sortBy=${sortBy}&sortDirection=${sortDirection}`);
+export const getAllWallpapers = (sortBy: string, sortDirection: string, page: number, limit: number) => {
+    return API.get(`/wallpapers?sortBy=${sortBy}&sortDirection=${sortDirection}&page=${page}&limit=${limit}`);
 }
 
 /**

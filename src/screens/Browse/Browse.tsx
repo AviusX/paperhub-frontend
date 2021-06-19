@@ -103,11 +103,11 @@ const Browse: React.FC = props => {
                 activeClassName="ring-1 ring-primary border-primary"
 
                 previousLabel={<ChevronLeftIcon className="w-7" />}
-                previousClassName="flex-1 flex justify-center items-center border-2 border-gray-500 rounded"
+                previousClassName="flex-1 flex justify-center items-center mx-2 border-2 border-gray-500 rounded"
                 previousLinkClassName="flex-1 text-center p-4 lg:p-8"
 
                 nextLabel={<ChevronRightIcon className="w-7" />}
-                nextClassName="flex-1 flex justify-center items-center border-2 border-gray-500 rounded"
+                nextClassName="flex-1 flex justify-center items-center mx-2 border-2 border-gray-500 rounded"
                 nextLinkClassName="flex-1 text-center p-4 lg:p-8"
             />
         </section>

@@ -8,12 +8,14 @@ import IStore from './store/IStore';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { ToastContainer, Flip } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.min.css';
+import './scss/ReactToastify.scss';
+import { PermissionLevel } from './enums/PermissionLevel';
 
 function App() {
   const location = useLocation();
   const authCheck = useAuthCheck();
-  const isAuthenticated = useSelector<IStore>(state => state.user.isAuthenticated);
+  const permissionLevel = useSelector<IStore>(state => state.user.permissionLevel) as number;
+  const isAuthenticated = useSelector<IStore>(state => state.user.isAuthenticated) as boolean;
 
   // We only want to run this useEffect once, not on every render.
   // Therefore, an empty array is necessary. Putting authCheck in the
@@ -38,6 +40,7 @@ function App() {
       <ToastContainer transition={Flip} />
 
       <Switch>
+
         <Route path="/" exact >
           {isAuthenticated ? (
             <Redirect to="/browse" />
@@ -46,10 +49,12 @@ function App() {
           )
           }
         </Route>
+
         <Route path="/browse">
           <Browse />
         </Route>
-        {isAuthenticated ? (
+
+        {isAuthenticated && permissionLevel >= PermissionLevel.Moderator ? (
           <Route path="/upload">
             <Upload />
           </Route>

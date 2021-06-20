@@ -26,16 +26,19 @@ const Navbar: React.FC = props => {
     if (isAuthenticated) {
         rightNavLinks = (
             <>
-                {permissionLevel === PermissionLevel.Developer ? (
+                {permissionLevel === PermissionLevel.Developer && (
                     <NavLink onClick={() => setShowCreateTagModal(true)}>
                         Create Tag
                     </NavLink>
-                ) : null}
-                <Link to="/upload" className="h-full">
-                    <NavLink>
-                        Upload Wallpaper
-                    </NavLink>
-                </Link>
+                )}
+
+                {permissionLevel >= PermissionLevel.Moderator && (
+                    <Link to="/upload" className="h-full">
+                        <NavLink>
+                            Upload Wallpaper
+                        </NavLink>
+                    </Link>
+                )}
                 <UserDropdown username={username} />
             </>
         );
@@ -66,14 +69,14 @@ const Navbar: React.FC = props => {
             ), document.getElementById("backdrop-root") as Element)}
 
             <nav className="flex flex-1 flex-wrap justify-between items-stretch lg:flex-nowrap sticky top-0 left-0
-    w-full bg-primary-dark h-16 z-10" id="navbar">
+    w-full bg-primary-dark lg:h-16 z-10" id="navbar">
                 {/* Left nav links */}
                 <ul className="flex px-6">
                     <Link to="/">
                         <li className="px-3 h-full hover:backdrop-filter hover:backdrop-brightness-200
-            transition-all duration-200 font-logo text-primary text-xl flex items-center">
+            transition-all duration-200 font-logo text-primary text-md lg:text-xl flex items-center">
                             Paperhub
-                    </li>
+                        </li>
                     </Link>
                 </ul>
 
@@ -88,7 +91,7 @@ const Navbar: React.FC = props => {
 
                 {/* Right nav links */}
                 <ul className="hidden w-full lg:flex lg:items-center lg:justify-end lg:px-6" id="hamburger-menu">
-                    <Link to="/browse" className="h-full">
+                    <Link to="/browse" className="lg:h-full">
                         <NavLink>
                             Browse
                         </NavLink>

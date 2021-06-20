@@ -16,10 +16,10 @@ const UserDropdown: React.FC<Props> = props => {
     }
 
     return (
-        <li className="relative h-full bg-primary-dark">
-            <button className="flex justify-center items-center lg:px-4 lg:mx-1 h-full hover:backdrop-filter
-            hover:backdrop-brightness-200 transition duration-200 text-accent text-lg font-display font-bold
-            cursor-pointer bg-primary-dark lg:bg-transparent focus:outline-none w-full"
+        <li className="relative lg:h-full bg-primary-dark">
+            <button className="flex justify-center items-center lg:px-4 py-5 lg:py-none lg:mx-1 lg:h-full
+            hover:backdrop-filter hover:backdrop-brightness-200 transition duration-200 text-accent text-lg font-display
+            font-bold cursor-pointer bg-primary-dark lg:bg-transparent focus:outline-none w-full"
                 onClick={toggleDropdown}
             >
                 <UserCircleIcon className="w-8 mr-1" />

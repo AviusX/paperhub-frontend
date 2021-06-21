@@ -26,8 +26,12 @@ const WallpaperGrid: React.FC<Props> = props => {
             <div className="grid md:grid-cols-2 xl:grid-cols-3 grid-flow-row-dense items-center 
             justify-items-center px-4">
                 {
-                    props.wallpapers.map(wallpaper => (
-                        <WallpaperCard wallpaper={wallpaper} key={wallpaper._id} />
+                    props.wallpapers.map((wallpaper, index) => (
+                        <WallpaperCard
+                            wallpaper={wallpaper}
+                            key={wallpaper._id}
+                            animationDelay={index * 0.2}
+                        />
                     ))
                 }
             </div>

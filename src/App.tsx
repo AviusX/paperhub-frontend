@@ -4,13 +4,14 @@ import Landing from './screens/Landing/Landing';
 import Browse from './screens/Browse/Browse';
 import Upload from './screens/Upload/Upload';
 import UserProfile from './screens/UserProfile/UserProfile';
-import { useAuthCheck } from './hooks/auth';
 import IStore from './store/IStore';
+import { PermissionLevel } from './enums/PermissionLevel';
+import { useAuthCheck } from './hooks/auth';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { ToastContainer, Flip } from 'react-toastify';
+import { AnimatePresence } from 'framer-motion';
 import './scss/ReactToastify.scss';
-import { PermissionLevel } from './enums/PermissionLevel';
 
 function App() {
   const location = useLocation();
@@ -40,32 +41,34 @@ function App() {
       can show up anywhere. */}
       <ToastContainer transition={Flip} />
 
-      <Switch>
-        <Route path="/user/:userId" exact>
-          <UserProfile />
-        </Route>
-
-        <Route path="/browse" exact>
-          <Browse />
-        </Route>
-
-        {isAuthenticated && permissionLevel >= PermissionLevel.Moderator ? (
-          <Route path="/upload" exact>
-            <Upload />
+      <AnimatePresence exitBeforeEnter>
+        <Switch location={location} key={location.key}>
+          <Route path="/user/:userId" exact>
+            <UserProfile />
           </Route>
-        ) : (
-          <Redirect to="browse" />
-        )}
 
-        <Route path="/" exact >
-          {isAuthenticated ? (
-            <Redirect to="/browse" />
-          ) : (
-            <Landing />
-          )
-          }
-        </Route>
-      </Switch>
+          <Route path="/browse" exact>
+            <Browse />
+          </Route>
+
+          <Route path="/upload" exact>
+            {isAuthenticated && permissionLevel >= PermissionLevel.Moderator ? (
+              <Upload />
+            ) : (
+              <Redirect to="/browse" />
+            )
+            }
+          </Route>
+          <Route path="/" exact>
+            {isAuthenticated ? (
+              <Redirect to="/browse" />
+            ) : (
+              <Landing />
+            )
+            }
+          </Route>
+        </Switch>
+      </AnimatePresence>
     </>
   );
 }

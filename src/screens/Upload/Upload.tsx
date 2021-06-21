@@ -3,9 +3,11 @@ import InputField from '../../components/InputField/InputField';
 import Button from '../../components/Buttons/Button';
 import TagSelector from '../../components/TagSelector/TagSelector';
 import ErrorMessage from '../../components/FormErrorMessage/FormErrorMessage';
+import { routeVariants } from '../../variants';
 import { wallpaperSchema } from '../../schema/wallpaper';
 import { PhotographIcon } from '@heroicons/react/outline';
 import { useUploadWallpaper } from '../../hooks/wallpapers';
+import { motion } from 'framer-motion';
 
 const Upload: React.FC = props => {
     const [wallpaperURL, setWallpaperURL] = useState<string>();
@@ -68,7 +70,13 @@ const Upload: React.FC = props => {
     }
 
     return (
-        <section className="w-full lg:h-nav-screen lg:overflow-y-hidden">
+        <motion.section
+            className="w-full lg:h-nav-screen lg:overflow-y-hidden"
+            variants={routeVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+        >
             <form onSubmit={submitHandler} className="flex flex-wrap w-full lg:h-full">
 
                 {/* The image/wallpaper select div */}
@@ -110,7 +118,7 @@ const Upload: React.FC = props => {
                 </div>
 
             </form>
-        </section>
+        </motion.section>
     );
 }
 

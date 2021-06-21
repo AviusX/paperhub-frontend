@@ -50,7 +50,7 @@ const UserProfile: React.FC = props => {
                 setUser(res.data);
             })
             .catch(err => {
-                history.goBack();
+                history.push('/browse');
                 toast.error(err.response.data.message);
             });
     }, [params.userId, history]);

@@ -2,16 +2,24 @@ import DiscordLoginButton from '../../components/Buttons/DiscordLoginButton';
 import RoundedButton from '../../components/Buttons/RoundedButton';
 import Illustration from '../../components/Illustration/Illustration';
 import WallpaperIllustration from '../../assets/images/wallpaper-illustration.svg';
+import { routeVariants } from '../../variants';
 import classes from './Landing.module.scss';
 import { useDiscordLogin } from '../../hooks/auth';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 const Landing: React.FC = props => {
     const discordLogin = useDiscordLogin();
 
     return (
-        <section className={`h-screen w-full flex flex-col items-start box-border 
-        ${classes.Landing} ${classes.Wave}`}>
+        <motion.section
+            className={`h-screen w-full flex flex-col items-start box-border
+            ${classes.Landing} ${classes.Wave}`}
+            variants={routeVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+        >
             {/* Landing page navbar */}
             <div className="hidden lg:flex justify-end items-center w-full mt-14 px-8 lg:px-20 h-20">
                 <DiscordLoginButton onClick={discordLogin} />
@@ -34,7 +42,7 @@ const Landing: React.FC = props => {
                     <Illustration src={WallpaperIllustration} />
                 </div>
             </div>
-        </section>
+        </motion.section>
     );
 }
 

@@ -1,8 +1,10 @@
 import { IWallpaper } from '../../api/interfaces';
 import { DownloadIcon } from '@heroicons/react/solid';
 import { getUser } from '../../api';
+import { wallpaperCardVariants } from '../../variants';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 interface Owner {
     username: string;
@@ -11,6 +13,7 @@ interface Owner {
 
 interface Props {
     wallpaper: IWallpaper;
+    animationDelay: number;
 }
 
 const WallpaperCard: React.FC<Props> = props => {
@@ -42,8 +45,14 @@ const WallpaperCard: React.FC<Props> = props => {
     const spanClass = props.wallpaper.height > props.wallpaper.width ? "row-span-2" : "row-span-1"
 
     return (
-        <div className={`flex flex-col rounded-2xl filter drop-shadow-2xl bg-secondary rounded-2xl my-5 mx-4
-        ${spanClass}`}>
+        <motion.div
+            className={`flex flex-col rounded-2xl filter drop-shadow-2xl bg-secondary rounded-2xl my-5 mx-4
+            ${spanClass}`}
+            variants={wallpaperCardVariants}
+            initial="hidden"
+            animate="visible"
+            transition={{ duration: 0.4, delay: props.animationDelay }}
+        >
             {/* Wallpaper Image */}
             <img
                 src={imgSrc}
@@ -73,7 +82,7 @@ const WallpaperCard: React.FC<Props> = props => {
                 </Link>
                 <p className="mx-1">{`${props.wallpaper.width}x${props.wallpaper.height}`}</p>
             </div>
-        </div>
+        </motion.div>
     );
 }
 

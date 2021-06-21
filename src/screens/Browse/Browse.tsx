@@ -1,3 +1,4 @@
+import PageSection from '../../components/PageSection/PageSection';
 import PageHeader from '../../components/PageHeader/PageHeader';
 import WallpaperGrid from '../../components/WallpaperGrid/WallpaperGrid';
 import { SortBy } from '../../enums/SortBy';
@@ -37,7 +38,7 @@ const Browse: React.FC = props => {
     }
 
     return (
-        <section className="flex flex-col justify-center items-center my-4 w-full">
+        <PageSection>
             <PageHeader>
                 Browse
             </PageHeader>
@@ -53,8 +54,7 @@ const Browse: React.FC = props => {
                 onPageChange={onPageChange}
 
             />
-
-        </section>
+        </PageSection>
     );
 }
 

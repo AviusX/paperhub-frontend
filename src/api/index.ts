@@ -78,9 +78,9 @@ export const authCheck = () => API.get('/auth/check');
  */
 export const getUser = (id: string) => API.get(`/users/${id}`);
 
-export const getUserWallpapers = (id: string, sortBy: string, sortDirection: string, page: number, limit: number) => {
-    API.get(`/users/${id}/wallpapers?sortBy=${sortBy}&sortDirection=${sortDirection}&page=${page}&limit=${limit}`);
-}
+export const getUserWallpapers = (id: string, sortBy: string, sortDirection: string, page: number, limit: number) => (
+    API.get(`/users/${id}/wallpapers?sortBy=${sortBy}&sortDirection=${sortDirection}&page=${page}&limit=${limit}`)
+)
 
 /**
  * Sends a logout request.

@@ -2,6 +2,7 @@ import { IWallpaper } from '../../api/interfaces';
 import { DownloadIcon } from '@heroicons/react/solid';
 import { getUser } from '../../api';
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 interface Owner {
     username: string;
@@ -67,7 +68,9 @@ const WallpaperCard: React.FC<Props> = props => {
 
             {/* Metadata div */}
             <div className="flex justify-between items-center text-md lg:text-xl text-gray-500 px-2 py-1">
-                <p className="mx-1">{`${owner?.username}#${owner?.discriminator}`}</p>
+                <Link to={`/user/${props.wallpaper.owner}`} className="hover:underline">
+                    <p className="mx-1">{`${owner?.username}#${owner?.discriminator}`}</p>
+                </Link>
                 <p className="mx-1">{`${props.wallpaper.width}x${props.wallpaper.height}`}</p>
             </div>
         </div>

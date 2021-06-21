@@ -3,6 +3,7 @@ import Navbar from './components/Navbar/Navbar';
 import Landing from './screens/Landing/Landing';
 import Browse from './screens/Browse/Browse';
 import Upload from './screens/Upload/Upload';
+import UserProfile from './screens/UserProfile/UserProfile';
 import { useAuthCheck } from './hooks/auth';
 import IStore from './store/IStore';
 import { useEffect } from 'react';
@@ -40,6 +41,21 @@ function App() {
       <ToastContainer transition={Flip} />
 
       <Switch>
+        <Route path="/user/:userId" exact>
+          <UserProfile />
+        </Route>
+
+        <Route path="/browse" exact>
+          <Browse />
+        </Route>
+
+        {isAuthenticated && permissionLevel >= PermissionLevel.Moderator ? (
+          <Route path="/upload" exact>
+            <Upload />
+          </Route>
+        ) : (
+          <Redirect to="browse" />
+        )}
 
         <Route path="/" exact >
           {isAuthenticated ? (
@@ -49,18 +65,6 @@ function App() {
           )
           }
         </Route>
-
-        <Route path="/browse">
-          <Browse />
-        </Route>
-
-        {isAuthenticated && permissionLevel >= PermissionLevel.Moderator ? (
-          <Route path="/upload">
-            <Upload />
-          </Route>
-        ) : (
-          <Redirect to="browse" />
-        )}
       </Switch>
     </>
   );

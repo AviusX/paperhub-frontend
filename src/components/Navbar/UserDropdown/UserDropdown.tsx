@@ -2,6 +2,9 @@ import DropdownItem from './DropdownItem';
 import { useLogout } from '../../../hooks/auth';
 import { useState } from 'react';
 import { UserCircleIcon, ChevronDownIcon } from '@heroicons/react/solid';
+import { Link } from 'react-router-dom';
+import IStore from '../../../store/IStore';
+import { useSelector } from 'react-redux';
 
 interface Props {
     username: string;
@@ -9,6 +12,8 @@ interface Props {
 
 const UserDropdown: React.FC<Props> = props => {
     const [showDropdown, setShowDropdown] = useState<boolean>(false);
+    const discordId = useSelector<IStore>(state => state.user.discordId);
+
     const logout = useLogout();
 
     const toggleDropdown = () => {
@@ -29,6 +34,12 @@ const UserDropdown: React.FC<Props> = props => {
             {showDropdown ? (
                 <ul className="absolute lg:-right-1 z-10 w-full lg:w-48 rounded-b-lg text-white text-lg
                 bg-primary-dark border-t-2 border-primary">
+                    <Link to={`/user/${discordId}`}>
+                        <DropdownItem>
+                            Profile
+                        </DropdownItem>
+                    </Link>
+
                     <DropdownItem onClick={logout}>
                         Logout
                     </DropdownItem>

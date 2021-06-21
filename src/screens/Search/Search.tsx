@@ -66,7 +66,11 @@ export const Search: React.FC = props => {
             <PageHeader>Search</PageHeader>
 
             <form onSubmit={onSearchSubmit} className="w-10/12 md:8/12 xl:w-5/12 mb-6">
-                <InputField placeholder="Search" iconPosition="left" inputRef={searchInputRef}>
+                <InputField
+                    placeholder="Search using wallpaper title or tags such as anime, dark, minimal, widescreen, etc."
+                    iconPosition="left"
+                    inputRef={searchInputRef}
+                >
                     <SearchIcon className="w-1/2" />
                 </InputField>
             </form>

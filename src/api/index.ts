@@ -34,6 +34,10 @@ export const uploadWallpaper = (wallpaper: File, title: string, tags: string[]) 
     return API.post('/wallpapers', formData);
 }
 
+export const searchWallpapers = (query: string, sortBy: string, sortDirection: string, page: number, limit: number) => (
+    API.get(`/wallpapers/search?query=${query}&sortBy=${sortBy}&sortDirection=${sortDirection}&page=${page}&limit=${limit}`)
+)
+
 // Tag Routes =================================================
 
 /**

@@ -17,6 +17,7 @@ interface Tag {
 }
 
 const TagSelector: React.FC<Props> = props => {
+    const [searchString, setSearchString] = useState("");
     const [showDropdown, setShowDropdown] = useState(false);
 
     // A list of all tags. This only gets set once on receiving a list of tags
@@ -53,16 +54,9 @@ const TagSelector: React.FC<Props> = props => {
 
     const onSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
         e.preventDefault();
-        const searchString = e.currentTarget.value;
-        const filteredTags = displayedTags.filter(tag => tag.title.includes(searchString));
-
-        // If the search string was non-empty, then set the displayedTags to the filtered
-        // tags, otherwise, if there was no search string, show all tags.
-        if (searchString) {
-            setDisplayedTags(filteredTags);
-        } else {
-            setDisplayedTags(allTags);
-        }
+        setSearchString(e.currentTarget.value);
+        const filteredTags = allTags.filter(tag => tag.title.includes(e.currentTarget.value));
+        setDisplayedTags(filteredTags);
     }
 
     const onTagChange = (index: number) => {
@@ -108,7 +102,7 @@ const TagSelector: React.FC<Props> = props => {
                 <ul className="absolute top-full right-0 w-full h-56 overflow-y-scroll rounded-lg bg-white border-2 
                 border-primary px-2">
                     {/* The search field */}
-                    <InputField placeholder="Search" iconPosition="left" onChange={onSearchChange}>
+                    <InputField placeholder="Search" iconPosition="left" onChange={onSearchChange} value={searchString}>
                         <SearchIcon className="w-1/2" />
                     </InputField>
 

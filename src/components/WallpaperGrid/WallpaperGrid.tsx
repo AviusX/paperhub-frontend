@@ -17,31 +17,31 @@ interface Props {
 const WallpaperGrid: React.FC<Props> = props => {
 
     return (
-        <>
-            <SortButtons
-                onSortByChange={props.onSortByChange}
-                onSortDirectionChange={props.onSortDirectionChange}
-            />
+        props.wallpapers.length > 0 && (
 
-            <div className="grid md:grid-cols-2 xl:grid-cols-3 grid-flow-row-dense items-center 
+            <>
+                <SortButtons
+                    onSortByChange={props.onSortByChange}
+                    onSortDirectionChange={props.onSortDirectionChange}
+                />
+
+                <div className="grid md:grid-cols-2 xl:grid-cols-3 grid-flow-row-dense items-center 
             justify-items-center px-4">
-                {
-                    props.wallpapers.map((wallpaper, index) => (
-                        <WallpaperCard
-                            wallpaper={wallpaper}
-                            key={wallpaper._id}
-                            animationDelay={index * 0.2}
-                        />
-                    ))
-                }
-            </div>
+                    {
+                        props.wallpapers.map((wallpaper, index) => (
+                            <WallpaperCard
+                                wallpaper={wallpaper}
+                                key={wallpaper._id}
+                                animationDelay={index * 0.2}
+                            />
+                        ))
+                    }
+                </div>
 
-            {props.wallpapers.length > 0 && (
                 <Paginator pageCount={props.pageCount} onPageChange={props.onPageChange} />
-            )}
-        </>
-
-    );
+            </>
+        )
+    ) || null;
 }
 
 export default WallpaperGrid;

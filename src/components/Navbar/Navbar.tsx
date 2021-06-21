@@ -90,10 +90,15 @@ const Navbar: React.FC = props => {
                 <input className="hidden" type="checkbox" id="hamburger-menu-toggle" />
 
                 {/* Right nav links */}
-                <ul className="hidden w-full lg:flex lg:items-center lg:justify-end lg:px-6" id="hamburger-menu">
+                <ul className="hidden absolute top-full lg:static z-40 w-full lg:flex lg:items-center lg:justify-end lg:px-6" id="hamburger-menu">
                     <Link to="/browse" className="lg:h-full">
                         <NavLink>
                             Browse
+                        </NavLink>
+                    </Link>
+                    <Link to="/search" className="lg:h-full">
+                        <NavLink>
+                            Search
                         </NavLink>
                     </Link>
 

@@ -2,6 +2,7 @@ import { Switch, Route, Redirect, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar';
 import Landing from './screens/Landing/Landing';
 import Browse from './screens/Browse/Browse';
+import Search from './screens/Search/Search';
 import Upload from './screens/Upload/Upload';
 import UserProfile from './screens/UserProfile/UserProfile';
 import IStore from './store/IStore';
@@ -49,6 +50,10 @@ function App() {
 
           <Route path="/browse" exact>
             <Browse />
+          </Route>
+
+          <Route path="/search" exact>
+            <Search />
           </Route>
 
           <Route path="/upload" exact>

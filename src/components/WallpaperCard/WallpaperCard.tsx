@@ -8,6 +8,7 @@ import { PermissionLevel } from '../../enums/PermissionLevel';
 import { wallpaperCardVariants } from '../../variants';
 
 import { useState, useEffect } from 'react';
+import ReactDOM from 'react-dom';
 import { Link } from 'react-router-dom';
 import { DownloadIcon } from '@heroicons/react/solid';
 import { useSelector } from 'react-redux';
@@ -63,11 +64,14 @@ const WallpaperCard: React.FC<Props> = props => {
 
     return (
         <>
-            <DeleteConfirmationModal
-                show={showDeleteConfirmationModal}
-                closeModalHandler={closeModalHandler}
-                wallpaperId={props.wallpaper._id}
-            />
+            {ReactDOM.createPortal(
+                <DeleteConfirmationModal
+                    show={showDeleteConfirmationModal}
+                    closeModalHandler={closeModalHandler}
+                    wallpaperId={props.wallpaper._id}
+                />,
+                document.getElementById("backdrop-root") as Element
+            )}
             <motion.div
                 className={`flex flex-col relative rounded-2xl filter drop-shadow-2xl bg-secondary rounded-2xl my-5 mx-4
             ${spanClass}`}

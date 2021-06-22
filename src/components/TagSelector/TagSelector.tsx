@@ -60,27 +60,26 @@ const TagSelector: React.FC<Props> = props => {
     }
 
     const onTagChange = (index: number) => {
-        const selectedTags = []; // Array of values of checked checkboxes.
-        const checkboxes = document.querySelectorAll('input[type=checkbox]:checked'); // Checked checkboxes
+        const updatedDisplayTags = createDeepCopy(displayedTags);
+        const updatedAllTags = createDeepCopy(allTags);
+        const changedTagTitle = updatedDisplayTags[index].title;
 
-        // Spread the current state to create a new array,
-        // otherwise the component won't re-render on updating it
-        // because it'll still be the same reference.
-        const updatedTags = [...displayedTags];
+        // Toggle the checked property of tag in displayTags
+        updatedDisplayTags[index].checked = !updatedDisplayTags[index].checked;
+        setDisplayedTags(updatedDisplayTags);
 
-        // Populate the array with values of checked checkboxes.
-        for (let i = 0; i < checkboxes.length; i++) {
-            selectedTags.push((checkboxes[i] as HTMLInputElement).value);
-        }
+        // Get the index of tag in allTags array
+        const tagIndex = getIndex(allTags, changedTagTitle);
 
-        // Display the currently selected tags in a comma separated list in the input field.
-        if (props.tagsFieldRef.current) {
-            props.tagsFieldRef.current.value = selectedTags.join(', ');
-        }
+        // Toggle the checked property of tag in allTags
+        updatedAllTags[tagIndex].checked = !updatedAllTags[tagIndex].checked;
+        setAllTags(updatedAllTags);
 
-        // Toggle the checkbox's checked state and set the new state.
-        updatedTags[index].checked = !updatedTags[index].checked;
-        setDisplayedTags(updatedTags);
+        // Get the checked tags from allTags
+        const checkedTags = updatedAllTags.filter(tag => tag.checked);
+
+        // Set the value of the read only input field to the selected tags
+        (props.tagsFieldRef.current as HTMLInputElement).value = checkedTags.flatMap(tag => tag.title).join(', ');
     }
 
     return (
@@ -126,5 +125,37 @@ const TagSelector: React.FC<Props> = props => {
         </div>
     );
 }
+
+/**
+ * Takes an array of type Tag[] and a title as arguments,
+ * returns the index of the tag that has the given title.
+ *
+ * @param {Tag[]} tagList
+ * @param {string} title
+ */
+const getIndex = (tagList: Tag[], title: string) => {
+    for (let i = 0; i < tagList.length; i++) {
+        if (tagList[i].title === title) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+/**
+ * Takes an array of type Tag[] as an argument and
+ * returns a deep copy of that array.
+ *
+ * @param {Tag[]} tagList
+ * @return {*} 
+ */
+const createDeepCopy = (tagList: Tag[]) => {
+    const arrToReturn = [];
+    for (let tag of tagList) {
+        arrToReturn.push({ ...tag })
+    }
+    return arrToReturn;
+}
+
 
 export default TagSelector;

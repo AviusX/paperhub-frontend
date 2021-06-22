@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { UserCircleIcon, ChevronDownIcon } from '@heroicons/react/solid';
 import { Link } from 'react-router-dom';
 import IStore from '../../../store/IStore';
+import { PermissionLevel } from '../../../enums/PermissionLevel';
 import { useSelector } from 'react-redux';
 
 interface Props {
@@ -13,6 +14,7 @@ interface Props {
 const UserDropdown: React.FC<Props> = props => {
     const [showDropdown, setShowDropdown] = useState<boolean>(false);
     const id = useSelector<IStore>(state => state.user.id);
+    const permissionLevel = useSelector<IStore>(state => state.user.permissionLevel) as number;
 
     const logout = useLogout();
 
@@ -34,12 +36,13 @@ const UserDropdown: React.FC<Props> = props => {
             {showDropdown ? (
                 <ul className="absolute lg:-right-1 z-10 w-full lg:w-48 rounded-b-lg text-white text-lg
                 bg-primary-dark border-t-2 border-primary">
-                    <Link to={`/user/${id}`}>
-                        <DropdownItem>
-                            Profile
-                        </DropdownItem>
-                    </Link>
-
+                    {permissionLevel >= PermissionLevel.Moderator && (
+                        <Link to={`/user/${id}`}>
+                            <DropdownItem>
+                                Profile
+                            </DropdownItem>
+                        </Link>
+                    )}
                     <DropdownItem onClick={logout}>
                         Logout
                     </DropdownItem>

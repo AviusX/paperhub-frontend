@@ -17,8 +17,7 @@ interface Props {
 const WallpaperGrid: React.FC<Props> = props => {
 
     return (
-        props.wallpapers.length > 0 && (
-
+        props.wallpapers.length > 0 ? (
             <>
                 <SortButtons
                     onSortByChange={props.onSortByChange}
@@ -26,7 +25,7 @@ const WallpaperGrid: React.FC<Props> = props => {
                 />
 
                 <div className="grid md:grid-cols-2 xl:grid-cols-3 grid-flow-row-dense items-center 
-            justify-items-center px-4">
+                justify-items-center px-4">
                     {
                         props.wallpapers.map((wallpaper, index) => (
                             <WallpaperCard
@@ -40,8 +39,14 @@ const WallpaperGrid: React.FC<Props> = props => {
 
                 <Paginator pageCount={props.pageCount} onPageChange={props.onPageChange} />
             </>
+        ) : (
+            <div className="flex w-full justify-center items-center px-2 py-4">
+                <h1 className="text-3xl md:text-4xl xl:text-5xl text-gray-500 text-center">
+                    Oops! No wallpapers found. Upload some to see them here.
+                </h1>
+            </div>
         )
-    ) || null;
+    );
 }
 
 export default WallpaperGrid;

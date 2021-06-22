@@ -1,19 +1,20 @@
 import { Switch, Route, Redirect, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar';
-import Landing from './screens/Landing/Landing';
-import Browse from './screens/Browse/Browse';
-import Search from './screens/Search/Search';
-import Upload from './screens/Upload/Upload';
 import Loading from './screens/Loading/Loading';
-import UserProfile from './screens/UserProfile/UserProfile';
 import IStore from './store/IStore';
 import { PermissionLevel } from './enums/PermissionLevel';
 import { useAuthCheck } from './hooks/auth';
-import { useEffect } from 'react';
+import React, { useEffect, Suspense } from 'react';
 import { useSelector } from 'react-redux';
 import { ToastContainer, Flip } from 'react-toastify';
 import { AnimatePresence } from 'framer-motion';
 import './scss/ReactToastify.scss';
+
+const Landing = React.lazy(() => import("./screens/Landing/Landing"));
+const Browse = React.lazy(() => import("./screens/Browse/Browse"));
+const Search = React.lazy(() => import("./screens/Search/Search"));
+const Upload = React.lazy(() => import("./screens/Upload/Upload"));
+const UserProfile = React.lazy(() => import("./screens/UserProfile/UserProfile"));
 
 function App() {
   const location = useLocation();
@@ -44,41 +45,39 @@ function App() {
       <ToastContainer transition={Flip} />
 
       <AnimatePresence exitBeforeEnter>
-        <Switch location={location} key={location.key}>
-          <Route path="/user/:userId" exact>
-            <UserProfile />
-          </Route>
+        <Suspense fallback={<Loading />} key={location.key}>
+          <Switch location={location}>
+            <Route path="/user/:userId" exact>
+              <UserProfile />
+            </Route>
 
-          <Route path="/browse" exact>
-            <Browse />
-          </Route>
+            <Route path="/browse" exact>
+              <Browse />
+            </Route>
 
-          <Route path="/search" exact>
-            <Search />
-          </Route>
+            <Route path="/search" exact>
+              <Search />
+            </Route>
 
-          <Route path="/upload" exact>
-            {isAuthenticated && permissionLevel >= PermissionLevel.Creator ? (
-              <Upload />
-            ) : (
-              <Redirect to="/browse" />
-            )
-            }
-          </Route>
+            <Route path="/upload" exact>
+              {isAuthenticated && permissionLevel >= PermissionLevel.Creator ? (
+                <Upload />
+              ) : (
+                <Redirect to="/browse" />
+              )
+              }
+            </Route>
 
-          <Route path="/loader">
-            <Loading />
-          </Route>
-
-          <Route path="/" exact>
-            {isAuthenticated ? (
-              <Redirect to="/browse" />
-            ) : (
-              <Landing />
-            )
-            }
-          </Route>
-        </Switch>
+            <Route path="/" exact>
+              {isAuthenticated ? (
+                <Redirect to="/browse" />
+              ) : (
+                <Landing />
+              )
+              }
+            </Route>
+          </Switch>
+        </Suspense>
       </AnimatePresence>
     </>
   );

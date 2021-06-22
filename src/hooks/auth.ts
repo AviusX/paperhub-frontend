@@ -13,7 +13,7 @@ import { useDispatch } from 'react-redux';
 
 export const useDiscordLogin = () => {
     return function () {
-        window.open("http://localhost:4000/auth/discord", "_self");
+        window.open("https://paperhub.aviusx.dev/auth/discord", "_self");
     }
 }
 

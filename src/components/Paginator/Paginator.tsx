@@ -18,16 +18,16 @@ const Paginator: React.FC<Props> = props => (
         breakClassName="flex-1 flex items-center mx-1 border-2 border-gray-500 rounded"
         breakLinkClassName="flex-1 text-center p-3 lg:p-4"
 
-        pageClassName="flex-1 flex items-center mx-1 border-2 border-gray-500 rounded"
+        pageClassName="flex-1 flex items-center mx-1 border-2 border-gray-500 rounded cursor-pointer"
         pageLinkClassName="flex-1 text-center p-3 lg:p-4"
         activeClassName="ring-1 ring-primary border-primary"
 
         previousLabel={<ChevronLeftIcon className="w-7" />}
-        previousClassName="flex-1 flex justify-center items-center mx-2 border-2 border-gray-500 rounded"
+        previousClassName="flex-1 flex justify-center items-center mx-2 border-2 border-gray-500 rounded cursor-pointer"
         previousLinkClassName="flex-1 text-center p-4 lg:p-8"
 
         nextLabel={<ChevronRightIcon className="w-7" />}
-        nextClassName="flex-1 flex justify-center items-center mx-2 border-2 border-gray-500 rounded"
+        nextClassName="flex-1 flex justify-center items-center mx-2 border-2 border-gray-500 rounded cursor-pointer"
         nextLinkClassName="flex-1 text-center p-4 lg:p-8"
     />
 )

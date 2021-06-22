@@ -4,6 +4,7 @@ import Landing from './screens/Landing/Landing';
 import Browse from './screens/Browse/Browse';
 import Search from './screens/Search/Search';
 import Upload from './screens/Upload/Upload';
+import Loading from './screens/Loading/Loading';
 import UserProfile from './screens/UserProfile/UserProfile';
 import IStore from './store/IStore';
 import { PermissionLevel } from './enums/PermissionLevel';
@@ -64,6 +65,11 @@ function App() {
             )
             }
           </Route>
+
+          <Route path="/loader">
+            <Loading />
+          </Route>
+
           <Route path="/" exact>
             {isAuthenticated ? (
               <Redirect to="/browse" />

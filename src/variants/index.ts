@@ -13,6 +13,23 @@ export const backdropVariants = {
     }
 }
 
+export const loaderVariants = {
+    hidden: {
+        opacity: 0,
+        transition: {
+            type: "easeInOut",
+            duration: 1
+        }
+    },
+    visible: {
+        opacity: 1,
+        transition: {
+            type: "easeInOut",
+            duration: 1
+        }
+    }
+}
+
 export const wallpaperCardVariants = {
     hidden: {
         opacity: 0,

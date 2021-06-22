@@ -12,9 +12,23 @@ interface Props {
 
     pageCount: number;
     onPageChange: (page: { selected: number }) => void;
+
+    omitEmptyMessage?: boolean;
 }
 
 const WallpaperGrid: React.FC<Props> = props => {
+    let emptyMessage;
+    if (!props.omitEmptyMessage) {
+        emptyMessage = (
+            <div className="flex w-full justify-center items-center px-2 py-4">
+                <h1 className="text-3xl md:text-4xl xl:text-5xl text-gray-500 text-center">
+                    Oops! No wallpapers found. Upload some to see them here.
+                </h1>
+            </div>
+        )
+    } else {
+        emptyMessage = null;
+    }
 
     return (
         props.wallpapers.length > 0 ? (
@@ -40,11 +54,7 @@ const WallpaperGrid: React.FC<Props> = props => {
                 <Paginator pageCount={props.pageCount} onPageChange={props.onPageChange} />
             </>
         ) : (
-            <div className="flex w-full justify-center items-center px-2 py-4">
-                <h1 className="text-3xl md:text-4xl xl:text-5xl text-gray-500 text-center">
-                    Oops! No wallpapers found. Upload some to see them here.
-                </h1>
-            </div>
+            emptyMessage
         )
     );
 }

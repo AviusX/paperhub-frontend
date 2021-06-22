@@ -83,6 +83,8 @@ export const Search: React.FC = props => {
 
                 pageCount={pageCount}
                 onPageChange={onPageChange}
+
+                omitEmptyMessage
             />
         </PageSection>
     );

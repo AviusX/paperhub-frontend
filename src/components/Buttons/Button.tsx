@@ -1,6 +1,7 @@
 interface Props {
-    color: "primary" | "accent";
+    color: "primary" | "accent" | "secondary";
     type?: "button" | "submit" | "reset";
+    onClick?: () => void;
 }
 
 const RoundedButton: React.FC<Props> = props => {
@@ -15,12 +16,15 @@ const RoundedButton: React.FC<Props> = props => {
         colorClasses = "bg-primary text-secondary hover:filter hover:brightness-110";
     } else if (props.color === "accent") {
         colorClasses = "bg-accent text-secondary hover:filter hover:brightness-110";
+    } else if (props.color === "secondary") {
+        colorClasses = "bg-secondary filter brightness-90 text-black hover:brightness-75"
     }
 
     return (
         <button className={`py-2 px-4 md:py-3 md:px-5 xl:px-7 font-semibold focus:outline-none
         rounded-lg transition-color duration-300 ${colorClasses} flex justify-center items-center`}
             type={props.type}
+            onClick={props.onClick}
         >
             {props.children}
         </button>

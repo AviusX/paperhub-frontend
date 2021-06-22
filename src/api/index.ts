@@ -34,9 +34,31 @@ export const uploadWallpaper = (wallpaper: File, title: string, tags: string[]) 
     return API.post('/wallpapers', formData);
 }
 
+/**
+ * Takes a query string and sorting and pagination variables as arguments
+ * and sends a request to search for wallpapers using title or tags.
+ * 
+ * Promise resolves to either an array of found wallpapers and pageCount on 
+ * success or an error message on failure.
+ *
+ * @param {string} query
+ * @param {string} sortBy
+ * @param {string} sortDirection
+ * @param {number} page
+ * @param {number} limit
+ */
 export const searchWallpapers = (query: string, sortBy: string, sortDirection: string, page: number, limit: number) => (
     API.get(`/wallpapers/search?query=${query}&sortBy=${sortBy}&sortDirection=${sortDirection}&page=${page}&limit=${limit}`)
-)
+);
+
+/**
+ * Takes a wallpaper id and sends a request to delete that wallpaper.
+ * 
+ * Promise resolves to either a success or an error message.
+ *
+ * @param {string} id
+ */
+export const deleteWallpaper = (id: string) => API.delete(`/wallpapers/${id}`);
 
 // Tag Routes =================================================
 

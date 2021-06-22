@@ -42,6 +42,7 @@ module.exports = {
   variants: {
     extend: {
       filter: ['hover'],
+      transform: ['hover'],
       brightness: ['hover'],
       backdropFilter: ['hover'],
       backdropBrightness: ['hover']

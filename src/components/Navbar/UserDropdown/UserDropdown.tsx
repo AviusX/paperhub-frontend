@@ -12,7 +12,7 @@ interface Props {
 
 const UserDropdown: React.FC<Props> = props => {
     const [showDropdown, setShowDropdown] = useState<boolean>(false);
-    const discordId = useSelector<IStore>(state => state.user.discordId);
+    const id = useSelector<IStore>(state => state.user.id);
 
     const logout = useLogout();
 
@@ -34,7 +34,7 @@ const UserDropdown: React.FC<Props> = props => {
             {showDropdown ? (
                 <ul className="absolute lg:-right-1 z-10 w-full lg:w-48 rounded-b-lg text-white text-lg
                 bg-primary-dark border-t-2 border-primary">
-                    <Link to={`/user/${discordId}`}>
+                    <Link to={`/user/${id}`}>
                         <DropdownItem>
                             Profile
                         </DropdownItem>

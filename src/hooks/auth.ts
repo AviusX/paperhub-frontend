@@ -2,6 +2,7 @@ import { authCheck, logout } from '../api';
 import {
     authenticate,
     deauthenticate,
+    setId,
     setDiscordId,
     setDiscriminator,
     setPermissionLevel,
@@ -24,6 +25,7 @@ export const useAuthCheck = () => {
             .then(res => {
                 if (res.status === 200) {
                     dispatch(authenticate());
+                    dispatch(setId(res.data.id));
                     dispatch(setDiscordId(res.data.discordId));
                     dispatch(setUsername(res.data.username));
                     dispatch(setDiscriminator(res.data.discriminator));
@@ -43,6 +45,7 @@ export const useLogout = () => {
         logout()
             .then(res => {
                 dispatch(deauthenticate());
+                dispatch(setId(""));
                 dispatch(setDiscordId(""));
                 dispatch(setUsername(""));
                 dispatch(setDiscriminator(""));

@@ -57,7 +57,7 @@ function App() {
           </Route>
 
           <Route path="/upload" exact>
-            {isAuthenticated && permissionLevel >= PermissionLevel.Moderator ? (
+            {isAuthenticated && permissionLevel >= PermissionLevel.Creator ? (
               <Upload />
             ) : (
               <Redirect to="/browse" />

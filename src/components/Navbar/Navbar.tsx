@@ -32,7 +32,7 @@ const Navbar: React.FC = props => {
                     </NavLink>
                 )}
 
-                {permissionLevel >= PermissionLevel.Moderator && (
+                {permissionLevel >= PermissionLevel.Creator && (
                     <Link to="/upload" className="h-full">
                         <NavLink>
                             Upload Wallpaper

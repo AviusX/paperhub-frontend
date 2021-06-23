@@ -9,6 +9,7 @@ import { wallpaperCardVariants } from '../../variants';
 
 import { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
+import ReactGA from 'react-ga';
 import { Link } from 'react-router-dom';
 import { DownloadIcon } from '@heroicons/react/solid';
 import { useSelector } from 'react-redux';
@@ -47,6 +48,13 @@ const WallpaperCard: React.FC<Props> = props => {
 
     const closeModalHandler = () => {
         setShowDeleteConfirmationModal(false);
+    }
+
+    const downloadButtonClicked = () => {
+        ReactGA.event({
+            category: "Wallpaper",
+            action: `Wallpaper "${props.wallpaper.title}" downloaded.`
+        });
     }
 
     // We need to make a request to http://serverHostname/wallpapers/imgName
@@ -107,7 +115,9 @@ const WallpaperCard: React.FC<Props> = props => {
                     <div className="flex items-center absolute right-0 h-full mx-5 md:mx-8 text-primary">
                         <a className=" hover:text-accent cursor-pointer transition-colors duration-200
                     focus:outline-none"
-                            href={`/wallpapers/${props.wallpaper._id}`}>
+                            href={`/wallpapers/${props.wallpaper._id}`}
+                            onClick={downloadButtonClicked}
+                        >
                             <DownloadIcon className="w-6 sm:w-7 lg:w-8" />
                         </a>
                     </div>

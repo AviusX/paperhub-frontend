@@ -1,10 +1,12 @@
 import { Switch, Route, Redirect, useLocation } from 'react-router-dom';
+import config from './config';
 import Navbar from './components/Navbar/Navbar';
 import Loading from './screens/Loading/Loading';
 import IStore from './store/IStore';
 import { PermissionLevel } from './enums/PermissionLevel';
 import { useAuthCheck } from './hooks/auth';
 import React, { useEffect, Suspense } from 'react';
+import ReactGA from 'react-ga';
 import { useSelector } from 'react-redux';
 import { ToastContainer, Flip } from 'react-toastify';
 import { AnimatePresence } from 'framer-motion';
@@ -15,6 +17,8 @@ const Browse = React.lazy(() => import("./screens/Browse/Browse"));
 const Search = React.lazy(() => import("./screens/Search/Search"));
 const Upload = React.lazy(() => import("./screens/Upload/Upload"));
 const UserProfile = React.lazy(() => import("./screens/UserProfile/UserProfile"));
+
+ReactGA.initialize(config.ANALYTICS.id);
 
 function App() {
   const location = useLocation();
@@ -32,6 +36,11 @@ function App() {
 
   // eslint-disable-next-line
   useEffect(authCheck, []);
+
+  // Set up google analytics
+  useEffect(() => {
+    ReactGA.pageview(location.pathname);
+  });
 
   return (
     <>

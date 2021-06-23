@@ -8,12 +8,13 @@ import {
     setPermissionLevel,
     setUsername
 } from '../store/userSlice';
+import config from '../config';
 import { PermissionLevel } from '../enums/PermissionLevel';
 import { useDispatch } from 'react-redux';
 
 export const useDiscordLogin = () => {
     return function () {
-        window.open("https://paperhub.aviusx.dev/auth/discord", "_self");
+        window.open(`${config.SERVER.url}/auth/discord`, "_self");
     }
 }
 

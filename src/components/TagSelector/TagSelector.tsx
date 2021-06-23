@@ -54,8 +54,9 @@ const TagSelector: React.FC<Props> = props => {
 
     const onSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
         e.preventDefault();
-        setSearchString(e.currentTarget.value);
-        const filteredTags = allTags.filter(tag => tag.title.includes(e.currentTarget.value));
+        const searchInput = e.currentTarget.value.toLowerCase();
+        setSearchString(searchInput);
+        const filteredTags = allTags.filter(tag => tag.title.includes(searchInput));
         setDisplayedTags(filteredTags);
     }
 

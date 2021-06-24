@@ -57,18 +57,7 @@ const WallpaperCard: React.FC<Props> = props => {
         });
     }
 
-    // We need to make a request to http://serverHostname/wallpapers/imgName
-    // because images are stored in public/wallpapers/ on the server and
-    // "public" is set as the static directory and should not be included in the
-    // url. Thus, we remove the "public" from the imagePath to get the
-    // appropriate url to make a request to.
-
-    // props.wallpaper.imagePath should look something like- 
-    // "public/wallpapers/imageName"
-
-    const staticFolder = "public";
-    const imgSrc = props.wallpaper.imagePath.substring(staticFolder.length);
-    const spanClass = props.wallpaper.height > props.wallpaper.width ? "row-span-2" : "row-span-1"
+    const imgSrc = '/wallpapers/thumbnail/' + props.wallpaper._id;
 
     return (
         <>
@@ -81,8 +70,7 @@ const WallpaperCard: React.FC<Props> = props => {
                 document.getElementById("backdrop-root") as Element
             )}
             <motion.div
-                className={`flex flex-col relative rounded-2xl filter drop-shadow-2xl bg-secondary rounded-2xl my-5 mx-4
-            ${spanClass}`}
+                className={`flex flex-col relative rounded-2xl filter drop-shadow-2xl bg-secondary rounded-2xl my-5 mx-4`}
                 variants={wallpaperCardVariants}
                 initial="hidden"
                 animate="visible"

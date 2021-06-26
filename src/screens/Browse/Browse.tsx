@@ -1,6 +1,7 @@
 import PageSection from '../../components/PageSection/PageSection';
 import PageHeader from '../../components/PageHeader/PageHeader';
 import WallpaperGrid from '../../components/WallpaperGrid/WallpaperGrid';
+import Loading from '../../components/Loading/Loading';
 import { SortBy } from '../../enums/SortBy';
 import { SortDirection } from '../../enums/SortDirection';
 import { IWallpaper } from '../../api/interfaces';
@@ -9,6 +10,7 @@ import { useState, useEffect, ChangeEvent } from 'react';
 
 const Browse: React.FC = props => {
     const [wallpapers, setWallpapers] = useState<Array<IWallpaper>>([]);
+    const [showLoading, setShowLoading] = useState(true);
     const [page, setPage] = useState<number>(0);
     const [pageCount, setPageCount] = useState<number>(1);
     const [sortBy, setSortBy] = useState<string>(SortBy.MostRecent);
@@ -19,9 +21,11 @@ const Browse: React.FC = props => {
             .then(res => {
                 setWallpapers(res.data.wallpapers);
                 setPageCount(res.data.pageCount);
+                setShowLoading(false);
             })
             .catch(err => {
                 console.log(err.response.data.message);
+                setShowLoading(false);
             });
     }, [sortBy, sortDirection, page]);
 
@@ -38,23 +42,28 @@ const Browse: React.FC = props => {
     }
 
     return (
-        <PageSection>
-            <PageHeader>
-                Browse
+        <>
+            {showLoading && (
+                <Loading />
+            )}
+            <PageSection>
+                <PageHeader>
+                    Browse
             </PageHeader>
 
 
-            <WallpaperGrid
-                wallpapers={wallpapers}
+                <WallpaperGrid
+                    wallpapers={wallpapers}
 
-                onSortByChange={onSortByChange}
-                onSortDirectionChange={onSortDirectionChange}
+                    onSortByChange={onSortByChange}
+                    onSortDirectionChange={onSortDirectionChange}
 
-                pageCount={pageCount}
-                onPageChange={onPageChange}
+                    pageCount={pageCount}
+                    onPageChange={onPageChange}
 
-            />
-        </PageSection>
+                />
+            </PageSection>
+        </>
     );
 }
 

@@ -1,7 +1,7 @@
 import { Switch, Route, Redirect, useLocation } from 'react-router-dom';
 import config from './config';
 import Navbar from './components/Navbar/Navbar';
-import Loading from './screens/Loading/Loading';
+import Loading from './components/Loading/Loading';
 import IStore from './store/IStore';
 import { PermissionLevel } from './enums/PermissionLevel';
 import { useAuthCheck } from './hooks/auth';

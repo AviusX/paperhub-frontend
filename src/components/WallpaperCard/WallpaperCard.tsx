@@ -1,5 +1,6 @@
 import { IWallpaper } from '../../api/interfaces';
 import DeleteConfirmationModal from '../Modals/DeleteConfirmationModal';
+import { PhotographIcon } from '@heroicons/react/solid';
 import { TrashIcon } from '@heroicons/react/outline';
 
 import { getUser } from '../../api';
@@ -31,6 +32,8 @@ const WallpaperCard: React.FC<Props> = props => {
 
     const id = useSelector<IStore>(state => state.user.id);
     const permissionLevel = useSelector<IStore>(state => state.user.permissionLevel) as number;
+
+    const isGif = props.wallpaper.mimeType === "image/gif";
 
     useEffect(() => {
         getUser(props.wallpaper.owner)
@@ -70,6 +73,7 @@ const WallpaperCard: React.FC<Props> = props => {
                 />,
                 document.getElementById("backdrop-root") as Element
             )}
+
             <motion.div
                 className={`flex flex-col relative rounded-2xl filter drop-shadow-2xl bg-secondary rounded-2xl my-5 mx-4 ${spanClass}`}
                 variants={wallpaperCardVariants}
@@ -77,6 +81,7 @@ const WallpaperCard: React.FC<Props> = props => {
                 animate="visible"
                 transition={{ duration: 0.4, delay: props.animationDelay }}
             >
+
                 {/* Delete Icon (Shown only if the user is the owner or has above admin privileges) */}
                 {(id === props.wallpaper.owner || permissionLevel > PermissionLevel.Admin) && (
                     <div className="flex justify-center items-center absolute top-2 lg:top-4 right-2 lg:right-4 p-2 backdrop-filter 
@@ -85,6 +90,16 @@ const WallpaperCard: React.FC<Props> = props => {
                         onClick={() => setShowDeleteConfirmationModal(true)}
                     >
                         <TrashIcon className="w-6 sm:w-7 lg:w-8" />
+                    </div>
+                )}
+
+                {/* Gif icon (Shown if wallpaper is a gif) */}
+                {isGif && (
+                    <div className="flex justify-between items-center absolute top-2 lg:top-4 left-2 lg:left-4 
+                    text-white bg-gray-500 bg-opacity-40 backdrop-filter backdrop-blur-lg rounded-xl px-2 py-1"
+                    >
+                        <PhotographIcon className="w-5 sm:w-6 lg:w-7" />
+                        <span className="font-display tracking-widest ml-1">GIF</span>
                     </div>
                 )}
 

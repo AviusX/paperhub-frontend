@@ -3,6 +3,7 @@ export interface IWallpaper {
     owner: string;
     title: string;
     imagePath: string;
+    mimeType: string;
     width: number;
     height: number;
     downloadCount?: number;

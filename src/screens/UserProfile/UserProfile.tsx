@@ -1,6 +1,7 @@
 import PageHeader from "../../components/PageHeader/PageHeader";
 import PageSection from "../../components/PageSection/PageSection";
 import WallpaperGrid from "../../components/WallpaperGrid/WallpaperGrid";
+import Loading from '../../components/Loading/Loading';
 
 import { SortBy } from '../../enums/SortBy';
 import { SortDirection } from '../../enums/SortDirection';
@@ -28,6 +29,7 @@ const UserProfile: React.FC = props => {
     const [pageCount, setPageCount] = useState<number>(1);
     const [sortBy, setSortBy] = useState<string>(SortBy.MostRecent);
     const [sortDirection, setSortDirection] = useState<string>(SortDirection.Ascending);
+    const [showLoading, setShowLoading] = useState(true);
 
     const history = useHistory();
     const params = useParams<RouteParams>();
@@ -48,10 +50,12 @@ const UserProfile: React.FC = props => {
         getUser(params.userId)
             .then(res => {
                 setUser(res.data);
+                setShowLoading(false);
             })
             .catch(err => {
                 history.push('/browse');
                 toast.error(err.response.data.message);
+                setShowLoading(false);
             });
     }, [params.userId, history]);
 
@@ -67,21 +71,25 @@ const UserProfile: React.FC = props => {
     }, [params.userId, page, sortBy, sortDirection, history]);
 
     return (
-        <PageSection>
-            <PageHeader>
-                Wallpapers by {user?.username}<span className="text-gray-400">#{user?.discriminator}</span>
-            </PageHeader>
+        <>
+            {showLoading && <Loading />}
 
-            <WallpaperGrid
-                wallpapers={userWallpapers}
+            <PageSection>
+                <PageHeader>
+                    Wallpapers by {user?.username}<span className="text-gray-400">#{user?.discriminator}</span>
+                </PageHeader>
 
-                onSortByChange={onSortByChange}
-                onSortDirectionChange={onSortDirectionChange}
+                <WallpaperGrid
+                    wallpapers={userWallpapers}
 
-                pageCount={pageCount}
-                onPageChange={onPageChange}
-            />
-        </PageSection>
+                    onSortByChange={onSortByChange}
+                    onSortDirectionChange={onSortDirectionChange}
+
+                    pageCount={pageCount}
+                    onPageChange={onPageChange}
+                />
+            </PageSection>
+        </>
     );
 }
 

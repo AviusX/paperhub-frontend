@@ -2,13 +2,14 @@ import { IWallpaper } from '../../api/interfaces';
 import DeleteConfirmationModal from '../Modals/DeleteConfirmationModal';
 import { PhotographIcon } from '@heroicons/react/solid';
 import { TrashIcon } from '@heroicons/react/outline';
+import Rings from '../../assets/images/rings.svg';
 
 import { getUser } from '../../api';
 import IStore from '../../store/IStore';
 import { PermissionLevel } from '../../enums/PermissionLevel';
 import { wallpaperCardVariants } from '../../variants';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import ReactDOM from 'react-dom';
 import ReactGA from 'react-ga';
 import { Link } from 'react-router-dom';
@@ -29,6 +30,8 @@ interface Props {
 const WallpaperCard: React.FC<Props> = props => {
     const [owner, setOwner] = useState<Owner>();
     const [showDeleteConfirmationModal, setShowDeleteConfirmationModal] = useState<boolean>(false);
+    const loaderRef = useRef<HTMLDivElement>(null);
+    const errorRef = useRef<HTMLDivElement>(null);
 
     const id = useSelector<IStore>(state => state.user.id);
     const permissionLevel = useSelector<IStore>(state => state.user.permissionLevel) as number;
@@ -58,6 +61,17 @@ const WallpaperCard: React.FC<Props> = props => {
             category: "Wallpaper",
             action: `Wallpaper "${props.wallpaper.title}" downloaded.`
         });
+    }
+
+    // Run when image successfully loads.
+    const imgLoadHandler = () => {
+        (loaderRef.current as HTMLDivElement).style.display = "none";
+    }
+
+    // Run when image fails to load.
+    const imgErrorHandler = () => {
+        (loaderRef.current as HTMLDivElement).style.display = "none";
+        (errorRef.current as HTMLDivElement).classList.remove("hidden");
     }
 
     const imgSrc = '/wallpapers/thumbnail/' + props.wallpaper._id;
@@ -106,9 +120,23 @@ const WallpaperCard: React.FC<Props> = props => {
                 {/* Wallpaper Image */}
                 <img
                     src={imgSrc}
-                    alt={`${props.wallpaper.title}`}
+                    alt=""
                     className="max-w-full rounded-t-2xl"
+                    onLoad={imgLoadHandler}
+                    onError={imgErrorHandler}
                 />
+
+                {/* Loader div. This gets hidden when the images finish loading. */}
+                <div className="flex items-center justify-center w-full" ref={loaderRef}>
+                    <img src={Rings} alt="Loading..." className="w-14 max-w-full my-20 mx-40 lg:mx-48" />
+                </div>
+
+                {/* Error div. Shown if image cannot be loaded. */}
+                <div className="hidden flex justify-center items-center w-full" ref={errorRef}>
+                    <h3 className="text-2xl text-gray-500 text-center my-16 md:my-28 mx-10 md:mx-20 max-w-full">
+                        Image could not be loaded.
+                    </h3>
+                </div>
 
                 <div className="flex justify-center items-center relative py-1 sm:py-2">
                     {/* Title */}

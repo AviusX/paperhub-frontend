@@ -1,0 +1,20 @@
+name: Deploy to Cloudsplitter
+on: 
+  push:
+    branches: [ master ]
+jobs:
+  Deploy-To-Cloudsplitter:
+    runs-on: ubuntu-latest
+    steps:
+      - name: SSH and deploy to Cloudsplitter
+        uses: fifsky/ssh-action@master
+        with:
+          host: ${{ secrets.CLOUDSPLITTER_IP }}
+          user: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          command: |
+            cd deployment/paperhub-frontend
+            git pull
+            yarn install
+            yarn build 
+            cp -r ./build ../paperhub-backend/

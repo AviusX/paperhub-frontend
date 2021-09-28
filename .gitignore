@@ -14,6 +14,10 @@
 # config
 config.ts
 
+# editor configs
+.idea/
+.vscode/
+
 # misc
 .DS_Store
 .env.local

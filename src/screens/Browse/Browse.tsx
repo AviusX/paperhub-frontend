@@ -3,12 +3,12 @@ import PageHeader from '../../components/PageHeader/PageHeader';
 import WallpaperGrid from '../../components/WallpaperGrid/WallpaperGrid';
 import Loading from '../../components/Loading/Loading';
 
-import { SortBy } from '../../enums/SortBy';
-import { SortDirection } from '../../enums/SortDirection';
-import { IWallpaper } from '../../api/interfaces';
-import { getAllWallpapers } from '../../api/index';
+import {SortBy} from '../../enums/SortBy';
+import {SortDirection} from '../../enums/SortDirection';
+import {IWallpaper} from '../../api/interfaces';
+import {getAllWallpapers} from '../../api/index';
 
-import { useState, useEffect, ChangeEvent } from 'react';
+import {useState, useEffect, ChangeEvent} from 'react';
 
 const Browse: React.FC = props => {
     const [wallpapers, setWallpapers] = useState<Array<IWallpaper>>([]);
@@ -45,12 +45,12 @@ const Browse: React.FC = props => {
 
     return (
         <>
-            {showLoading && <Loading />}
+            {showLoading && <Loading/>}
 
             <PageSection>
                 <PageHeader>
                     Browse
-            </PageHeader>
+                </PageHeader>
 
 
                 <WallpaperGrid

@@ -17,4 +17,4 @@ jobs:
             git pull
             yarn install
             yarn build 
-            cp -r ./build ../paperhub-backend/
+            cp -rv ./build ../paperhub-backend/

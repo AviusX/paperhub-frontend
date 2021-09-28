@@ -9,7 +9,7 @@ interface Props {
 const Paginator: React.FC<Props> = props => (
     <ReactPaginate
         pageCount={props.pageCount}
-        pageRangeDisplayed={3}
+        pageRangeDisplayed={1}
         marginPagesDisplayed={1}
         onPageChange={props.onPageChange}
 

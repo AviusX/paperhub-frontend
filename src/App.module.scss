@@ -1,0 +1,8 @@
+// Padding according to the height of the footer to avoid footer overlapping with other components
+.FooterPadding {
+  padding-bottom: 14rem;
+
+  @media screen and (min-width: 1366px) {
+    padding-bottom: 10rem;
+  }
+}

@@ -2,19 +2,22 @@ name: Deploy to Cloudsplitter
 on: 
   push:
     branches: [ master ]
+
 jobs:
   Deploy-To-Cloudsplitter:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
-      - name: SSH and deploy to Cloudsplitter
-        uses: fifsky/ssh-action@master
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Setup Node
+        uses: actions/setup-node@v2
         with:
-          host: ${{ secrets.CLOUDSPLITTER_IP }}
-          user: ${{ secrets.USERNAME }}
-          key: ${{ secrets.KEY }}
-          command: |
-            cd deployment/paperhub-frontend
-            git pull
-            yarn install
-            yarn build 
-            cp -rv ./build ../paperhub-backend/
+          cache: 'yarn'
+      - name: Copy config.ts
+        run: cp ~/configs/frontend-config.ts ${{ github.workspace }}/src/config.ts
+      - name: Installing dependencies
+        run: yarn install
+      - name: Building the project
+        run: yarn build
+      - name: Copying files to server
+        run: cp -r ${{ github.workspace }}/build ~/deployment/paperhub-backend/

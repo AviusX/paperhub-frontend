@@ -8,6 +8,7 @@ import {SortDirection} from '../../enums/SortDirection';
 import {IWallpaper} from '../../api/interfaces';
 import {getAllWallpapers} from '../../api';
 
+
 import {useState, useEffect, ChangeEvent} from 'react';
 
 const Browse: React.FC = props => {

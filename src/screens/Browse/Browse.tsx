@@ -6,7 +6,8 @@ import Loading from '../../components/Loading/Loading';
 import {SortBy} from '../../enums/SortBy';
 import {SortDirection} from '../../enums/SortDirection';
 import {IWallpaper} from '../../api/interfaces';
-import {getAllWallpapers} from '../../api/index';
+import {getAllWallpapers} from '../../api';
+
 
 import {useState, useEffect, ChangeEvent} from 'react';
 

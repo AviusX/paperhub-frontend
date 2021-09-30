@@ -1,23 +1,28 @@
-import { useState, useRef, ChangeEvent, FormEvent } from 'react';
 import InputField from '../../components/InputField/InputField';
 import Button from '../../components/Buttons/Button';
 import TagSelector from '../../components/TagSelector/TagSelector';
 import ErrorMessage from '../../components/FormErrorMessage/FormErrorMessage';
-import { routeVariants } from '../../variants';
-import { wallpaperSchema } from '../../schema/wallpaper';
-import { PhotographIcon } from '@heroicons/react/outline';
-import { useUploadWallpaper } from '../../hooks/wallpapers';
-import { motion } from 'framer-motion';
+import {routeVariants} from '../../variants';
+import {uploadWallpaper} from "../../api";
+import {wallpaperSchema} from '../../schema/wallpaper';
+import {PhotographIcon} from '@heroicons/react/outline';
+
+import {useState, useRef, ChangeEvent, FormEvent} from 'react';
+import {useHistory} from 'react-router-dom';
+import {motion} from 'framer-motion';
+import {toast} from "react-toastify";
 
 const Upload: React.FC = props => {
+    const history = useHistory();
+
     const [wallpaperURL, setWallpaperURL] = useState<string>();
     const [errorMessage, setErrorMessage] = useState<string>();
+    // state to disable the button while upload is in progress
+    const [uploading, setUploading] = useState(false);
 
     const wallpaperRef = useRef<HTMLInputElement>(null);
     const titleRef = useRef<HTMLInputElement>(null);
     const tagsFieldRef = useRef<HTMLInputElement>(null);
-
-    const uploadWallpaper = useUploadWallpaper();
 
     const submitHandler = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -33,7 +38,7 @@ const Upload: React.FC = props => {
             fileType = wallpaper.type;
         }
 
-        const { error } = wallpaperSchema.validate({ title, tags });
+        const {error} = wallpaperSchema.validate({title, tags});
 
         if (!fileTypeRegex.test(fileType)) {
             fileTypeError = "An image file is required.";
@@ -44,12 +49,23 @@ const Upload: React.FC = props => {
         } else if (fileTypeError) {
             setErrorMessage(fileTypeError);
         } else {
-            // Add ts-expect-error because we want to ignore this error.
+            // Add ts-ignore because we want to ignore this error.
             // This is because `wallpaper` or `title` will never be undefined
             // by the time this code executes.
 
-            // @ts-expect-error
-            uploadWallpaper(wallpaper, title, tags);
+            setUploading(true);
+
+            // @ts-ignore
+            uploadWallpaper(wallpaper, title, tags)
+                .then(res => {
+                    setUploading(false);
+                    toast.success(res.data.message);
+                    history.push('/');
+                })
+                .catch(err => {
+                    toast.error(err.response.data.message);
+                    setUploading(false);
+                })
         }
     }
 
@@ -84,11 +100,11 @@ const Upload: React.FC = props => {
                     <label className="flex relative justify-center items-center py-3 h-full">
                         {wallpaperURL ? (
                             <div className="max-w-3/4">
-                                <img src={wallpaperURL} alt="Wallpaper" className="max-h-nav-screen max-w-full" />
+                                <img src={wallpaperURL} alt="Wallpaper" className="max-h-nav-screen max-w-full"/>
                             </div>
                         ) : (
                             <div className="flex flex-col items-center max-w-3/4">
-                                <PhotographIcon className="max-w-1/4 opacity-50" />
+                                <PhotographIcon className="max-w-1/4 opacity-50"/>
                                 <p className="font-semibold text-xl lg:text-2xl text-center">
                                     Click here or drag an image here to select a wallpaper.
                                 </p>
@@ -106,13 +122,17 @@ const Upload: React.FC = props => {
 
                 {/* The title & tag select div */}
                 <div className="flex flex-col w-full lg:w-4/12 lg:shadow-2xl px-5 py-7">
-                    <InputField placeholder="Wallpaper Title" label="Title" inputRef={titleRef} />
-                    <TagSelector tagsFieldRef={tagsFieldRef} />
+                    <InputField placeholder="Wallpaper Title" label="Title" inputRef={titleRef}/>
+                    <TagSelector tagsFieldRef={tagsFieldRef}/>
 
                     <div className="my-5 self-end">
-                        <Button color="primary" type="submit">
-                            Upload
-                        </Button>
+                        {uploading ? (
+                            <Button color="primary" type="submit" loading/>
+                        ) : (
+                            <Button color="primary" type="submit">
+                                Upload
+                            </Button>
+                        )}
                     </div>
                     <ErrorMessage>{errorMessage}</ErrorMessage>
                 </div>

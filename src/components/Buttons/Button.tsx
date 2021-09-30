@@ -1,6 +1,9 @@
+import ThreeDots from '../../assets/images/three-dots.svg';
+
 interface Props {
     color: "primary" | "accent" | "secondary";
     type?: "button" | "submit" | "reset";
+    loading?: boolean;
     onClick?: () => void;
 }
 
@@ -21,12 +24,19 @@ const RoundedButton: React.FC<Props> = props => {
     }
 
     return (
-        <button className={`py-2 px-4 md:py-3 md:px-5 xl:px-7 font-semibold focus:outline-none
-        rounded-lg transition-color duration-300 ${colorClasses} flex justify-center items-center`}
+        <button
+            className={`py-2 px-4 md:py-3 md:px-5 xl:px-7 font-semibold focus:outline-none
+        rounded-lg transition-color duration-300 ${colorClasses} flex justify-center items-center
+        disabled:opacity-50 disabled:cursor-not-allowed`}
             type={props.type}
             onClick={props.onClick}
+            disabled={props.loading} // If we are currently loading, disable the button
         >
-            {props.children}
+            {
+                props.loading ?
+                    <img src={ThreeDots} className="h-3" alt="Loading..."/>
+                    : props.children
+            }
         </button>
     );
 }

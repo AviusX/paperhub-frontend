@@ -1,16 +1,16 @@
-import {Switch, Route, Redirect, useLocation} from 'react-router-dom';
+import { Switch, Route, Redirect, useLocation } from 'react-router-dom';
 import config from './config';
 import Navbar from './components/Navbar/Navbar';
 import Footer from "./components/Footer";
 import Loading from './components/Loading/Loading';
 import IStore from './store/IStore';
-import {PermissionLevel} from './enums/PermissionLevel';
-import {useAuthCheck} from './hooks/auth';
-import React, {useEffect, Suspense} from 'react';
+import { PermissionLevel } from './enums/PermissionLevel';
+import { useAuthCheck } from './hooks/auth';
+import React, { useEffect, Suspense } from 'react';
 import ReactGA from 'react-ga';
-import {useSelector} from 'react-redux';
-import {ToastContainer, Flip} from 'react-toastify';
-import {AnimatePresence} from 'framer-motion';
+import { useSelector } from 'react-redux';
+import { ToastContainer, Flip } from 'react-toastify';
+import { AnimatePresence } from 'framer-motion';
 import './scss/ReactToastify.scss';
 import classes from './App.module.scss';
 
@@ -50,42 +50,42 @@ function App() {
         <section className={`min-h-screen relative ${footerPadding}`}>
             {/* Render the navbar on all pages except the landing page. */}
             {location.pathname !== '/' ? (
-                <Navbar/>
+                <Navbar />
             ) : null}
 
             {/* Render the toast container on every page so that toasts
       can show up anywhere. */}
-            <ToastContainer transition={Flip}/>
+            <ToastContainer transition={Flip} />
 
             <AnimatePresence exitBeforeEnter>
-                <Suspense fallback={<Loading/>} key={location.key}>
+                <Suspense fallback={<Loading />} key={location.key}>
                     <Switch location={location}>
                         <Route path="/user/:userId" exact>
-                            <UserProfile/>
+                            <UserProfile />
                         </Route>
 
                         <Route path="/browse" exact>
-                            <Browse/>
+                            <Browse />
                         </Route>
 
                         <Route path="/search" exact>
-                            <Search/>
+                            <Search />
                         </Route>
 
                         <Route path="/upload" exact>
                             {isAuthenticated && permissionLevel >= PermissionLevel.Creator ? (
-                                <Upload/>
+                                <Upload />
                             ) : (
-                                <Redirect to="/browse"/>
+                                <Redirect to="/browse" />
                             )
                             }
                         </Route>
 
                         <Route path="/" exact>
                             {isAuthenticated ? (
-                                <Redirect to="/browse"/>
+                                <Redirect to="/browse" />
                             ) : (
-                                <Landing/>
+                                <Landing />
                             )}
                         </Route>
                     </Switch>
@@ -94,7 +94,7 @@ function App() {
 
             {/* Show the footer on all pages except the landing and upload pages */}
             {(location.pathname !== '/' && location.pathname !== '/upload') && (
-                <Footer/>
+                <Footer />
             )}
         </section>
     );

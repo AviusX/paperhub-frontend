@@ -3,15 +3,15 @@ import PageHeader from '../../components/PageHeader/PageHeader';
 import WallpaperGrid from '../../components/WallpaperGrid/WallpaperGrid';
 import Loading from '../../components/Loading/Loading';
 
-import {SortBy} from '../../enums/SortBy';
-import {SortDirection} from '../../enums/SortDirection';
-import {IWallpaper} from '../../api/interfaces';
-import {getAllWallpapers} from '../../api';
+import { SortBy } from '../../enums/SortBy';
+import { SortDirection } from '../../enums/SortDirection';
+import { IWallpaper } from '../../api/interfaces';
+import { getAllWallpapers } from '../../api';
 
 
-import {useState, useEffect, ChangeEvent} from 'react';
+import { useState, useEffect, ChangeEvent } from 'react';
 
-const Browse: React.FC = props => {
+const Browse: React.FC = () => {
     const [wallpapers, setWallpapers] = useState<Array<IWallpaper>>([]);
     const [showLoading, setShowLoading] = useState(true);
     const [page, setPage] = useState<number>(0);
@@ -27,7 +27,7 @@ const Browse: React.FC = props => {
                 setShowLoading(false);
             })
             .catch(err => {
-                console.log(err.response.data.message);
+                console.error(err.response.data.message);
                 setShowLoading(false);
             });
     }, [sortBy, sortDirection, page]);
@@ -41,12 +41,13 @@ const Browse: React.FC = props => {
     }
 
     const onPageChange = (page: { selected: number }) => {
-        setPage(page.selected)
+        setPage(page.selected);
+        window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
     return (
         <>
-            {showLoading && <Loading/>}
+            {showLoading && <Loading />}
 
             <PageSection>
                 <PageHeader>

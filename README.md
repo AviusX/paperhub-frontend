@@ -4,6 +4,26 @@
 
 ---
 
+## Config Template
+
+An `src/config.ts` file is required as follows:
+
+```ts
+const SERVER = {
+    url: <Backend server url>
+}
+
+const ANALYTICS = {
+    // The tracking id
+    id: <Google analytics tracking id>
+}
+
+const config = {
+    SERVER,
+    ANALYTICS
+}
+```
+
 ## License
 
 Frontend code for the wallpaper catalogue website named "Paperhub".

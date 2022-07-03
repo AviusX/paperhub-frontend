@@ -44,6 +44,7 @@ const UserProfile: React.FC = props => {
 
     const onPageChange = (page: { selected: number }) => {
         setPage(page.selected)
+        window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
     useEffect(() => {

@@ -52,7 +52,8 @@ export const Search: React.FC = props => {
     }
 
     const onPageChange = (page: { selected: number }) => {
-        setPage(page.selected)
+        setPage(page.selected);
+        window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
     const onSearchSubmit = (e: FormEvent) => {
